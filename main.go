@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fmt.Println(day1.Day1(readFromStdin()))
+	fmt.Println(day1.Part2(readFromStdin()))
 }
 
 func readFromStdin() string {
