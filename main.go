@@ -7,14 +7,23 @@ import (
 	"strconv"
 
 	"valbaca.com/advent2015/day1"
+	"valbaca.com/advent2015/day2"
 )
 
 const MAX_DAY = 1
 
 func main() {
 	day := getDay()
+	// TODO don't read whole file in memory
 	input := readInputFile(day)
-	fmt.Println(day1.Part2(input))
+	switch day {
+	case 1:
+		fmt.Println(day1.Part1(input))
+		fmt.Println(day1.Part2(input))
+	case 2:
+		fmt.Println(day2.Part1(input))
+		fmt.Println(day2.Part2(input))
+	}
 }
 
 func getDay() int {
@@ -22,7 +31,7 @@ func getDay() int {
 		usageExit()
 	}
 	day, err := strconv.Atoi(os.Args[1])
-	if err != nil || day < 1 || day > MAX_DAY {
+	if err != nil {
 		usageExit()
 	}
 	return day
