@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"valbaca.com/advent2015/utils"
 )
 
 func Part1(in string) string {
@@ -53,15 +55,7 @@ func toInts(line string) (int, int, int) {
 	if len(ss) < 3 {
 		panic(fmt.Sprintf("couldn't split %s", line))
 	}
-	return toI(ss[0]), toI(ss[1]), toI(ss[2])
-}
-
-func toI(s string) int {
-	out, err := strconv.Atoi(s)
-	if err != nil {
-		panic(err)
-	}
-	return out
+	return utils.AtoI(ss[0]), utils.AtoI(ss[1]), utils.AtoI(ss[2])
 }
 
 func getMinAndMid(a, b, c int) (int, int) {
