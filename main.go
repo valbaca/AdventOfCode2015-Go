@@ -8,6 +8,7 @@ import (
 
 	"valbaca.com/advent2015/day1"
 	"valbaca.com/advent2015/day2"
+	"valbaca.com/advent2015/day3"
 )
 
 const MAX_DAY = 1
@@ -23,6 +24,9 @@ func main() {
 	case 2:
 		fmt.Println(day2.Part1(input))
 		fmt.Println(day2.Part2(input))
+	case 3:
+		fmt.Println(day3.Part1(input))
+		fmt.Println(day3.Part2(input))
 	}
 }
 

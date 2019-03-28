@@ -1,5 +1,7 @@
+// Santa goes up and down an elevator with '(' for ups, and ')' for downs
 package day1
 
+// Part1 gives the floor that santa lands on based on open/closed parenthesis
 func Part1(in string) int {
 	out := 0
 	for _, r := range in {
@@ -12,6 +14,8 @@ func Part1(in string) int {
 	return out
 }
 
+// Part2 (per usual) is almost just like Part1 but we can exit early and just
+// need to return the index
 func Part2(in string) int {
 	out := 0
 	for i, r := range in {

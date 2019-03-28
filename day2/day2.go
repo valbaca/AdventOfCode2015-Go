@@ -1,3 +1,5 @@
+// Elves are wrapping boxes with WxLxH and need to calculate wrapping paper
+// square area and ribbon length
 package day2
 
 import (
@@ -8,6 +10,8 @@ import (
 	"valbaca.com/advent2015/utils"
 )
 
+// Part1 wrapping paper is straightforward. Most of the trouble is converting
+// between ints and strings
 func Part1(in string) string {
 	ss := strings.Split(in, "\n")
 	ss = ss[:len(ss)-1] // remove extra at end
@@ -29,6 +33,7 @@ func getSlack(a, b, c int) int {
 	return min * mid
 }
 
+// Part2 is similarly easy; again, converting is most of the code
 func Part2(in string) string {
 	ss := strings.Split(in, "\n")
 	ss = ss[:len(ss)-1] // remove extra at end
