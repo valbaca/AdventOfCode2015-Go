@@ -1,7 +1,11 @@
 // utils provides short, unsafe versions of functions for use in hacking
 package utils
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
 
 // AtoI is an unsafe verison of strconv.Atoi
 // it panics if there's any error
@@ -19,4 +23,13 @@ func AtoUint16(s string) uint16 {
 	} else {
 		return uint16(out)
 	}
+}
+
+func SumOverLines(in string, f func(string) int) string {
+	lines := strings.Split(strings.TrimSpace(in), "\n")
+	var sum int
+	for _, line := range lines {
+		sum += f(line)
+	}
+	return fmt.Sprintf("%v", sum)
 }
