@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"valbaca.com/advent2015/day1"
+	"valbaca.com/advent2015/day10"
 	"valbaca.com/advent2015/day2"
 	"valbaca.com/advent2015/day3"
 	"valbaca.com/advent2015/day4"
@@ -20,6 +21,7 @@ import (
 func main() {
 	day := getDay()
 	// TODO don't read whole file in memory
+	// TODO trim the input so each program doesn't have to
 	input := readInputFile(day)
 	switch day {
 	case 1:
@@ -40,6 +42,8 @@ func main() {
 		fmt.Println(day8.Part1(input), day8.Part2(input))
 	case 9:
 		fmt.Println(day9.Part1(input))
+	case 10:
+		fmt.Println(day10.Part1(input), day10.Part2(input))
 	}
 }
 
