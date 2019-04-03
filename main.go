@@ -9,6 +9,7 @@ import (
 	"valbaca.com/advent2015/day1"
 	"valbaca.com/advent2015/day10"
 	"valbaca.com/advent2015/day11"
+	"valbaca.com/advent2015/day12"
 	"valbaca.com/advent2015/day2"
 	"valbaca.com/advent2015/day3"
 	"valbaca.com/advent2015/day4"
@@ -47,6 +48,8 @@ func main() {
 		fmt.Println(day10.Part1(input), day10.Part2(input))
 	case 11:
 		fmt.Println(day11.Part1(input), day11.Part2(input))
+	case 12:
+		fmt.Println(day12.Part1(input), day12.Part2(input))
 	}
 }
 
