@@ -32,7 +32,7 @@ func AtoUint16(s string) uint16 {
 }
 
 func SumOverLines(in string, f func(string) int) string {
-	lines := strings.Split(strings.TrimSpace(in), "\n")
+	lines := strings.Split(in, "\n")
 	var sum int
 	for _, line := range lines {
 		sum += f(line)

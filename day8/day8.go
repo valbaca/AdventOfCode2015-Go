@@ -18,7 +18,7 @@ func Part2(in string) string {
 
 func GetOverhead(s string) int {
 	oh := 2
-	sp := strings.Split(strings.TrimSpace(s), "")
+	sp := strings.Split(s, "")
 	for i := 1; i < len(sp)-1; i++ {
 		if sp[i] == `\` {
 			if sp[i+1] == `\` {
@@ -37,7 +37,7 @@ func GetOverhead(s string) int {
 // [0,2719)
 func GetAddedOverhead(s string) int {
 	oh := 2
-	sp := strings.Split(strings.TrimSpace(s), "")
+	sp := strings.Split(s, "")
 	for i := 0; i < len(sp); i++ {
 		switch sp[i] {
 		case `"`, `\`:

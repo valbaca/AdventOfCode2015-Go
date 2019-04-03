@@ -4,11 +4,10 @@ import (
 	"bytes"
 	"fmt"
 	"strconv"
-	"strings"
 )
 
 func Part1(in string) string {
-	n := strings.TrimSpace(in)
+	n := in
 	for i := 0; i < 40; i++ {
 		n = LookAndSay(n)
 	}
@@ -16,7 +15,7 @@ func Part1(in string) string {
 }
 
 func Part2(in string) string {
-	n := strings.TrimSpace(in)
+	n := in
 	for i := 0; i < 50; i++ {
 		n = LookAndSay(n)
 	}

@@ -34,7 +34,6 @@ func Part2(in, key string) string {
 }
 
 func ReadInWires(in string) map[string]Wire {
-	in = strings.TrimSpace(in)
 	lines := strings.Split(in, "\n")
 	wires := make(map[string]Wire) //, 26*26)
 	for _, line := range lines {

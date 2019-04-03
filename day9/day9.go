@@ -13,7 +13,7 @@ func BothParts(in string) string {
 	minDist = 100000
 	maxDist = 0
 	chart := &Chart{}
-	lines := strings.Split(strings.TrimSpace(in), "\n")
+	lines := strings.Split(in, "\n")
 	for _, line := range lines {
 		ReadLine(line, chart)
 	}
@@ -42,7 +42,6 @@ func ReadLine(s string, c *Chart) {
 }
 
 func SplitLine(s string) Edge {
-	s = strings.TrimSpace(s)
 	sp := strings.Split(s, " ")
 	// London to Dublin = 464
 	// 0      1  2      3 4

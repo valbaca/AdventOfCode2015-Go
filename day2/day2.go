@@ -14,7 +14,6 @@ import (
 // between ints and strings
 func Part1(in string) string {
 	ss := strings.Split(in, "\n")
-	ss = ss[:len(ss)-1] // remove extra at end
 	var sum int
 	for _, s := range ss {
 		a, b, c := toInts(s)
@@ -36,7 +35,6 @@ func getSlack(a, b, c int) int {
 // Part2 is similarly easy; again, converting is most of the code
 func Part2(in string) string {
 	ss := strings.Split(in, "\n")
-	ss = ss[:len(ss)-1] // remove extra at end
 	var sum int
 	for _, s := range ss {
 		a, b, c := toInts(s)

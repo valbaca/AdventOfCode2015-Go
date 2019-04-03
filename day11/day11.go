@@ -6,7 +6,7 @@ import (
 )
 
 func Part1(in string) string {
-	return FindNextValidPassword(strings.TrimSpace(in))
+	return FindNextValidPassword(in)
 }
 
 func Part2(in string) string {

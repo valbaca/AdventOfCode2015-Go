@@ -26,7 +26,7 @@ func Part2(in string) string {
 
 func ParseInput(in string) people {
 	p := people{}
-	sp := strings.Split(strings.TrimSpace(in), "\n")
+	sp := strings.Split(in, "\n")
 	for _, line := range sp {
 		a, diff, b := ParseLine(line)
 		p.addFeeling(name(a), name(b), diff)

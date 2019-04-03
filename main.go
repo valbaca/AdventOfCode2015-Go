@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"valbaca.com/advent2015/day1"
@@ -41,6 +42,7 @@ func main() {
 
 func executeDay(day int) {
 	input := readInputFile(day)
+	input = strings.TrimSpace(input)
 	switch day {
 	case 1:
 		fmt.Println(day1.Part1(input), day1.Part2(input))

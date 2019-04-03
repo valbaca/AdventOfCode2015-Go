@@ -16,7 +16,7 @@ func Part2(in string) string {
 }
 
 func findPrefix(in string, prefix string) string {
-	key := strings.TrimSpace(in)
+	key := in
 	n := 0
 	for {
 		hash := GetHash(key, n)

@@ -3,19 +3,18 @@ package day12
 import (
 	"fmt"
 	"regexp"
-	"strings"
 
 	"valbaca.com/advent2015/utils"
 )
 
 func Part1(in string) string {
-	return SumString(strings.TrimSpace(in))
+	return SumString(in)
 }
 
 // 68214 too high
 func Part2(in string) string {
 	//return SumString(FilterRed(strings.TrimSpace(in)))
-	return SumNoRed(strings.TrimSpace(in))
+	return SumNoRed(in)
 }
 
 func SumString(s string) string {
