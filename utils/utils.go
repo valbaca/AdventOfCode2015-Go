@@ -7,6 +7,12 @@ import (
 	"strings"
 )
 
+const MaxUint = ^uint(0)
+const MinUint = 0
+
+const MaxInt = int(MaxUint >> 1)
+const MinInt = -MaxInt - 1
+
 // AtoI is an unsafe verison of strconv.Atoi
 // it panics if there's any error
 func AtoI(s string) int {
