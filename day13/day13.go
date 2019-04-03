@@ -1,3 +1,7 @@
+// TIL: passing a slice to a function really passes the 'header' for the slice
+//   This is effectively like passing a pointer.
+//   So for recursive functions like this, it's best to defensively clone it
+// TIL: clone := append(orig[:0:0], orig...) // efficient clone
 package day13
 
 import (

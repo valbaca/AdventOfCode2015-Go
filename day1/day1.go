@@ -1,4 +1,5 @@
 // Santa goes up and down an elevator with '(' for ups, and ')' for downs
+// TIL: runes are *like* chars in other langs. Single quotes for runes
 package day1
 
 // Part1 gives the floor that santa lands on based on open/closed parenthesis

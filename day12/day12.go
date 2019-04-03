@@ -1,3 +1,5 @@
+// TIL: hand parsing JSON sucks
+// TIL: regexs in go are very fast but limited b/c no back references
 package day12
 
 import (

@@ -1,3 +1,6 @@
+// TIL: use ... for inline array lengths
+// TIL: can't define constant maps or arrays. must use var
+// TIL: build your own regexs with strings
 package day5
 
 import (

@@ -1,3 +1,4 @@
+// TIL: for these problems, trimming the input is really key
 package day8
 
 import (

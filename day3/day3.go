@@ -3,6 +3,7 @@
 // where the houses were intially null. But I couldn't figure out a good way to
 // handle the "loop" of houses and then realized that a set of x,y coordinates
 // is much easier. Sets in go are simply map[T]bool
+// TIL: using map[T]bool as a set
 package day3
 
 import (

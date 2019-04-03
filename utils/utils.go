@@ -2,16 +2,17 @@
 package utils
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
 
-const MaxUint = ^uint(0)
-const MinUint = 0
+// c/o https://stackoverflow.com/a/6878625
+// I've flipped the order so it shows how they're derived
+const MinUint = 0        // 000...
+const MaxUint = ^uint(0) // 111....
 
-const MaxInt = int(MaxUint >> 1)
-const MinInt = -MaxInt - 1
+const MaxInt = int(MaxUint >> 1) // 0111....
+const MinInt = -MaxInt - 1       // 1000..
 
 // AtoI is an unsafe verison of strconv.Atoi
 // it panics if there's any error
@@ -33,9 +34,9 @@ func AtoUint16(s string) uint16 {
 
 func SumOverLines(in string, f func(string) int) string {
 	lines := strings.Split(in, "\n")
-	var sum int
+	sum := 0
 	for _, line := range lines {
 		sum += f(line)
 	}
-	return fmt.Sprintf("%v", sum)
+	return strconv.Itoa(sum)
 }

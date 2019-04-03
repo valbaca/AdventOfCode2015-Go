@@ -1,3 +1,4 @@
+// TIL: use %c to convert byte to char in stringf
 package day11
 
 import (

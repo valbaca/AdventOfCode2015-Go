@@ -1,5 +1,8 @@
 // Elves are wrapping boxes with WxLxH and need to calculate wrapping paper
 // square area and ribbon length
+// TIL: pros/cons of go...
+//   pros: multi-value returns, strings.Split(s, pattern)
+//   cons: no ternary operator, awkward string<->int conversions
 package day2
 
 import (

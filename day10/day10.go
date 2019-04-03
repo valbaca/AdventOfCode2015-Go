@@ -1,3 +1,5 @@
+// TIL: two int-to-string conversions: strconv.Itoa(int) and fmt.Sprintf("%v", int)
+// TIL: bytes.Buffer is WAY faster than string appending
 package day10
 
 import (

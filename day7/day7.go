@@ -1,3 +1,9 @@
+// TIL: There is no bitwise NOT operator (usually ~ in most languages)
+//      Bitwise NOT is used to flip all the bits
+//      So instead, use ^x which is equivalent to 1s ^ x
+// TIL: this was the first real large problem that involved breaking it down
+// into discrete steps. Choosing a good struct and changing it as needed was
+// key to solving this well.
 package day7
 
 import (
