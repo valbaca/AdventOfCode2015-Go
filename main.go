@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strconv"
+	"time"
 
 	"valbaca.com/advent2015/day1"
 	"valbaca.com/advent2015/day10"
@@ -23,8 +24,22 @@ import (
 
 func main() {
 	day := getDay()
-	// TODO don't read whole file in memory
-	// TODO trim the input so each program doesn't have to
+	if day == 0 {
+		for i := 1; i <= 13; i++ {
+			start := time.Now()
+
+			fmt.Printf("Day %d: ", i)
+			executeDay(i)
+
+			elapsed := time.Since(start)
+			fmt.Printf("took %.4f\n\n", elapsed.Seconds())
+		}
+	} else {
+		executeDay(day)
+	}
+}
+
+func executeDay(day int) {
 	input := readInputFile(day)
 	switch day {
 	case 1:
@@ -44,7 +59,7 @@ func main() {
 	case 8:
 		fmt.Println(day8.Part1(input), day8.Part2(input))
 	case 9:
-		fmt.Println(day9.Part1(input))
+		fmt.Println(day9.BothParts(input))
 	case 10:
 		fmt.Println(day10.Part1(input), day10.Part2(input))
 	case 11:
@@ -58,18 +73,13 @@ func main() {
 
 func getDay() int {
 	if len(os.Args) < 2 {
-		usageExit()
+		return 0
 	}
 	day, err := strconv.Atoi(os.Args[1])
 	if err != nil {
-		usageExit()
+		return 0
 	}
 	return day
-}
-
-func usageExit() {
-	fmt.Fprintln(os.Stderr, "Usage: [day]\nday must be int")
-	os.Exit(1)
 }
 
 func readInputFile(day int) string {

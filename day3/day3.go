@@ -6,7 +6,6 @@
 package day3
 
 import (
-	"fmt"
 	"strconv"
 )
 
@@ -24,7 +23,7 @@ func Part1(in string) string {
 			houses[next] = true
 			curr = next
 		} else {
-			fmt.Printf("Got %q but ignored it\n", r)
+			//fmt.Printf("Got %q but ignored it\n", r) // Debug
 		}
 	}
 	return strconv.Itoa(len(houses))
@@ -51,7 +50,7 @@ func Part2(in string) string {
 				roboCurr = next
 			}
 		} else {
-			fmt.Printf("Got %q but ignored it\n", r)
+			//fmt.Printf("Got %q but ignored it\n", r) // Debug
 		}
 
 	}

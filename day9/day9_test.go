@@ -25,19 +25,18 @@ func TestSplitLine(t *testing.T) {
 	}
 }
 
-/*
 func TestPart1(t *testing.T) {
 	var tests = []struct {
 		name     string
 		expected string
 		given    string
 	}{
-		{"", "605", "London to Dublin = 464\nLondon to Belfast = 518\nDublin to Belfast = 141\n"},
+		{"", "min=605,max=982", "London to Dublin = 464\nLondon to Belfast = 518\nDublin to Belfast = 141\n"},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := Part1(tt.given)
+			actual := BothParts(tt.given)
 			if actual != tt.expected {
 				t.Errorf("(%s): expected %s, actual %s", tt.given, tt.expected, actual)
 			}
@@ -45,4 +44,3 @@ func TestPart1(t *testing.T) {
 		})
 	}
 }
-*/

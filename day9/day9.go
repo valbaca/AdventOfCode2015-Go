@@ -9,7 +9,7 @@ import (
 
 var minDist, maxDist int
 
-func Part1(in string) string {
+func BothParts(in string) string {
 	minDist = 100000
 	maxDist = 0
 	chart := &Chart{}
@@ -18,8 +18,7 @@ func Part1(in string) string {
 		ReadLine(line, chart)
 	}
 	printAllPaths(chart)
-	fmt.Printf("Min Dist = %v, Max Dist = %v\n", minDist, maxDist)
-	return "0"
+	return fmt.Sprintf("min=%v,max=%v", minDist, maxDist)
 }
 
 type Edge struct {
@@ -83,7 +82,8 @@ func (loc *Location) calcDist(to Location) int {
 
 func printAllPaths(c *Chart) {
 	for _, loc := range *c {
-		fmt.Print(buildPaths(loc, Visited{}, c, 0))
+		// fmt.Print(buildPaths(loc, Visited{}, c, 0)) // Debug
+		buildPaths(loc, Visited{}, c, 0)
 	}
 }
 

@@ -72,7 +72,7 @@ func SumNoRed(s string) string {
 			i = closeIndex
 		}
 		if si == ':' && len(s)-i >= 6 && s[i:i+6] == `:"red"` {
-			fmt.Printf("Sum of %s is 0 (red found!)\n", s)
+			//fmt.Printf("Sum of %s is 0 (red found!)\n", s) // Debug
 			return "0"
 		}
 	}
@@ -80,7 +80,7 @@ func SumNoRed(s string) string {
 		sum += utils.AtoI(buf)
 	}
 	out := fmt.Sprintf("%d", sum)
-	fmt.Printf("Sum of %s is %s\n", s, out)
+	//fmt.Printf("Sum of %s is %s\n", s, out) // Debug
 	return out
 }
 
