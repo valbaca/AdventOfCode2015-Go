@@ -27,12 +27,12 @@ func SumString(s string) string {
 		if (si >= '0' && si <= '9') || si == '-' {
 			buf = fmt.Sprintf("%s%c", buf, si)
 		} else if len(buf) != 0 {
-			sum += utils.AtoI(buf)
+			sum += utils.Atoi(buf)
 			buf = ""
 		}
 	}
 	if len(buf) != 0 {
-		sum += utils.AtoI(buf)
+		sum += utils.Atoi(buf)
 	}
 	return fmt.Sprintf("%d", sum)
 }
@@ -46,7 +46,7 @@ func SumNoRed(s string) string {
 		if (si >= '0' && si <= '9') || si == '-' {
 			buf = fmt.Sprintf("%s%c", buf, si)
 		} else if len(buf) != 0 {
-			sum += utils.AtoI(buf)
+			sum += utils.Atoi(buf)
 			buf = ""
 		}
 		if si == '{' {
@@ -68,7 +68,7 @@ func SumNoRed(s string) string {
 				panic("uh oh")
 			}
 			if closeIndex-i > 1 {
-				sum += utils.AtoI(SumNoRed(s[i+1 : closeIndex]))
+				sum += utils.Atoi(SumNoRed(s[i+1 : closeIndex]))
 			}
 			i = closeIndex
 		}
@@ -78,7 +78,7 @@ func SumNoRed(s string) string {
 		}
 	}
 	if len(buf) != 0 {
-		sum += utils.AtoI(buf)
+		sum += utils.Atoi(buf)
 	}
 	out := fmt.Sprintf("%d", sum)
 	//fmt.Printf("Sum of %s is %s\n", s, out) // Debug

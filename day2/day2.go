@@ -61,7 +61,7 @@ func toInts(line string) (int, int, int) {
 	if len(ss) < 3 {
 		panic(fmt.Sprintf("couldn't split %s", line))
 	}
-	return utils.AtoI(ss[0]), utils.AtoI(ss[1]), utils.AtoI(ss[2])
+	return utils.Atoi(ss[0]), utils.Atoi(ss[1]), utils.Atoi(ss[2])
 }
 
 func getMinAndMid(a, b, c int) (int, int) {

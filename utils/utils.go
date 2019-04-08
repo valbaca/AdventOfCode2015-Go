@@ -14,9 +14,9 @@ const MaxUint = ^uint(0) // 111....
 const MaxInt = int(MaxUint >> 1) // 0111....
 const MinInt = -MaxInt - 1       // 1000..
 
-// AtoI is an unsafe verison of strconv.Atoi
+// Atoi is an unsafe verison of strconv.Atoi
 // it panics if there's any error
-func AtoI(s string) int {
+func Atoi(s string) int {
 	if out, err := strconv.Atoi(s); err != nil {
 		panic(err)
 	} else {
@@ -39,4 +39,21 @@ func SumOverLines(in string, f func(string) int) string {
 		sum += f(line)
 	}
 	return strconv.Itoa(sum)
+}
+
+func Max(ints ...int) int {
+	max := ints[0]
+	for i := 1; i < len(ints); i++ {
+		if ints[i] > max {
+			max = ints[i]
+		}
+	}
+	return max
+}
+
+func ParseInt(s string) int {
+	if strings.HasSuffix(s, ",") {
+		s = s[:len(s)-1]
+	}
+	return Atoi(s)
 }

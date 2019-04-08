@@ -147,7 +147,7 @@ func MakeCommandWithOp(s string, op int) Command {
 	if len(ss) < 5 {
 		panic("Given poor input")
 	}
-	lx, rx, ly, ry := utils.AtoI(ss[0]), utils.AtoI(ss[3]), utils.AtoI(ss[1]), utils.AtoI(ss[4])
+	lx, rx, ly, ry := utils.Atoi(ss[0]), utils.Atoi(ss[3]), utils.Atoi(ss[1]), utils.Atoi(ss[4])
 	if lx > rx {
 		lx, rx = rx, lx
 	}

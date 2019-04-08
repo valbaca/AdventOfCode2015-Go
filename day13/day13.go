@@ -65,7 +65,7 @@ func ParseLine(line string) (string, int, string) {
 	if gainOrLose == "gain" {
 		pos = true
 	}
-	diff := utils.AtoI(diffStr)
+	diff := utils.Atoi(diffStr)
 	if !pos {
 		diff = -1 * diff
 	}

@@ -51,7 +51,7 @@ func SplitLine(s string) Edge {
 	if len(sp) < 5 {
 		panic("not enough words to SplitLine")
 	}
-	from, to, dist := sp[0], sp[2], utils.AtoI(sp[4])
+	from, to, dist := sp[0], sp[2], utils.Atoi(sp[4])
 	return Edge{from, to, dist}
 }
 
