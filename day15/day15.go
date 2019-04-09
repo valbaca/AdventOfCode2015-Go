@@ -1,3 +1,4 @@
+// TIL: how to pass func to func is made much easier with typedef and cleaner than in C
 package day15
 
 import (
