@@ -1,3 +1,4 @@
+// Package day4
 // TIL: go has md5 sum and others built-in
 // TIL: hacking checksums is slow :P
 package day4

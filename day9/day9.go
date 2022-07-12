@@ -1,5 +1,6 @@
+// Package day9
 // TIL: This was the first Hard problem which required major recursive brute
-// force to solve. The recursive func isn't very clean but it works and took
+// force to solve. The recursive func isn't very clean, but it works and took
 // several tries to especially have it print well.
 package day9
 

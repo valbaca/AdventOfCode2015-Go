@@ -1,3 +1,4 @@
+// Package day17
 // TIL: While I initially thought constructing all the permutations would be
 // slow and difficult, once I realized I could use a bit set it got easier.
 // Then just deciding to go through 0..2**n and making sets from that Finally,

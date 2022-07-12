@@ -1,3 +1,4 @@
+// Package utils
 // utils provides short, unsafe versions of functions for use in hacking
 package utils
 
@@ -14,8 +15,8 @@ const MaxUint = ^uint(0) // 111....
 const MaxInt = int(MaxUint >> 1) // 0111....
 const MinInt = -MaxInt - 1       // 1000..
 
-// Atoi is an unsafe verison of strconv.Atoi
-// it panics if there's any error
+// Atoi is an intentionally unsafe, but simpler version of strconv.Atoi
+// it just panics if there's any error
 func Atoi(s string) int {
 	if out, err := strconv.Atoi(s); err != nil {
 		panic(err)

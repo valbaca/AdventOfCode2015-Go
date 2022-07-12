@@ -1,3 +1,4 @@
+// Package day5
 // TIL: use ... for inline array lengths
 // TIL: can't define constant maps or arrays. must use var
 // TIL: build your own regexs with strings
@@ -22,7 +23,7 @@ func Part1(in string) string {
 
 var VOWELS = [...]rune{'a', 'e', 'i', 'o', 'u'}
 
-var NAUGHTY_PREV = map[rune]rune{
+var NaughtyPrev = map[rune]rune{
 	// curr : prev
 	'b': 'a',
 	'd': 'c',
@@ -66,7 +67,7 @@ func IsVowel(r rune) bool {
 }
 
 func IsNaughtyPair(p, r rune) bool {
-	return p == NAUGHTY_PREV[r]
+	return p == NaughtyPrev[r]
 }
 
 func Part2(in string) string {

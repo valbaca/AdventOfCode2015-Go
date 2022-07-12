@@ -1,3 +1,4 @@
+// Package day16
 // TIL: sometimes a map is better than copy and pasting
 package day16
 

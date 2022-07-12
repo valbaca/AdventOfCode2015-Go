@@ -1,3 +1,4 @@
+// Package day7
 // TIL: There is no bitwise NOT operator (usually ~ in most languages)
 //      Bitwise NOT is used to flip all the bits
 //      So instead, use ^x which is equivalent to 1s ^ x

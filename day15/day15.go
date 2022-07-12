@@ -1,3 +1,4 @@
+// Package day15
 // TIL: how to pass func to func is made much easier with typedef and cleaner than in C
 package day15
 
@@ -9,8 +10,8 @@ import (
 	"valbaca.com/advent2015/utils"
 )
 
-const TOTAL_TSP = 100
-const TARGET_CALS = 500
+const TotalTsp = 100
+const TargetCals = 500
 
 func Part1(in string) string {
 	parts := ParseInput(in)
@@ -61,7 +62,7 @@ type Measurements struct {
 
 func Optimize(parts []Part, fn scoreFunc) string {
 	drink := []Measurements{}
-	return fmt.Sprintf("%v", OptRecur(parts, TOTAL_TSP, drink, fn))
+	return fmt.Sprintf("%v", OptRecur(parts, TotalTsp, drink, fn))
 }
 
 type scoreFunc func(d []Measurements) *big.Int
@@ -116,7 +117,7 @@ func GetScoreCal(d []Measurements) *big.Int {
 		texSum += t * p.texture
 		calSum += t * p.calories
 	}
-	if calSum != TARGET_CALS {
+	if calSum != TargetCals {
 		return &big.Int{}
 	}
 	if capSum <= 0 || durSum <= 0 || flavSum <= 0 || texSum <= 0 {

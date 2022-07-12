@@ -1,3 +1,4 @@
+// Package day6
 // TIL: string.FieldsFunc to split on your own custom func
 // TIL: how to allocate 2D slices
 package day6

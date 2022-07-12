@@ -1,3 +1,4 @@
+// Package day1
 // Santa goes up and down an elevator with '(' for ups, and ')' for downs
 // TIL: runes are *like* chars in other langs. Single quotes for runes
 package day1
@@ -15,7 +16,7 @@ func Part1(in string) int {
 	return out
 }
 
-// Part2 (per usual) is almost just like Part1 but we can exit early and just
+// Part2 (per usual) is almost just like Part1, but we can exit early and just
 // need to return the index
 func Part2(in string) int {
 	out := 0
