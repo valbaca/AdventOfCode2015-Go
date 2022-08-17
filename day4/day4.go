@@ -18,17 +18,42 @@ func Part2(in string) string {
 	return findPrefix(in, "000000")
 }
 
-func findPrefix(in string, prefix string) string {
-	key := in
-	n := 0
-	for {
+type Soln struct {
+	n int
+	s string
+}
+
+const CONC = 3
+
+func work(jobs chan int, found chan Soln, key, prefix string) {
+	for n := range jobs {
 		hash := GetHash(key, n)
 		if strings.HasPrefix(hash, prefix) {
-			return strconv.Itoa(n)
+			found <- Soln{n, strconv.Itoa(n)}
+			return
+		} else {
+			select {
+			case ans := <-found:
+				found <- ans
+				return
+			default:
+				jobs <- n + CONC
+			}
 		}
-		n++
 	}
-	return "exit"
+}
+
+func findPrefix(in string, prefix string) string {
+	key := in
+	found := make(chan Soln)
+	jobs := make(chan int, CONC)
+	for i := 0; i < CONC; i++ {
+		go work(jobs, found, key, prefix)
+	}
+	for i := 0; i < CONC; i++ {
+		jobs <- i
+	}
+	return (<-found).s
 }
 
 func GetHash(key string, n int) string {

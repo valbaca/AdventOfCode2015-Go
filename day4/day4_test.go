@@ -8,8 +8,8 @@ func TestPart1(t *testing.T) {
 		expected string
 		given    string
 	}{
-		{"ex1", "609043", "abcdef\n"},
-		{"ex2", "1048970", "pqrstuv\n"},
+		{"ex1", "609043", "abcdef"},
+		{"ex2", "1048970", "pqrstuv"},
 	}
 	for _, tt := range tests {
 		tt := tt
