@@ -1,7 +1,9 @@
 // Package day13
 // TIL: passing a slice to a function really passes the 'header' for the slice
-//   This is effectively like passing a pointer.
-//   So for recursive functions like this, it's best to defensively clone it
+//
+//	This is effectively like passing a pointer.
+//	So for recursive functions like this, it's best to defensively clone it
+//
 // TIL: clone := append(orig[:0:0], orig...) // efficient clone
 package day13
 
@@ -90,14 +92,24 @@ func FindRecur(s []name, p people) int {
 		}
 	}
 	max := utils.MinInt
+	n := len(toAttemptInSeat)
+	maxes := make(chan int, n)
 	for _, attempt := range toAttemptInSeat {
-		attemptedSeating := append(seated, attempt)
-		recurResult := FindRecur(attemptedSeating, p)
-		if recurResult > max {
-			max = recurResult
+		go SubFindRecur(seated, attempt, p, maxes)
+	}
+	for i := 0; i < n; i++ {
+		m := <-maxes
+		if m > max {
+			max = m
 		}
 	}
 	return max
+}
+
+func SubFindRecur(seated []name, attempt name, p people, results chan int) {
+	attemptedSeating := append(seated, attempt)
+	recurResult := FindRecur(attemptedSeating, p)
+	results <- recurResult
 }
 
 func contains(names []name, query name) bool {
