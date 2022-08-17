@@ -1,6 +1,8 @@
-# Advent of Code 2015 (Go)
+# Advent of Code in Go
 
-Solutions to Advent of Code 2015 problems in Go
+Solutions to Advent of Code problems in Go.
+
+This currently contains year 2015
 
 Each day contains a "TIL" (Today I Learned) message that explains something about Go that I learned.
 

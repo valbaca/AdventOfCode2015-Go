@@ -32,7 +32,7 @@ import (
 func main() {
 	day := getDay()
 	if day == 0 {
-		for i := 1; i <= 13; i++ {
+		for i := 1; i <= 19; i++ {
 			start := time.Now()
 
 			fmt.Printf("Day %d: ", i)
