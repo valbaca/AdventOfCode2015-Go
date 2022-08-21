@@ -7,47 +7,51 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"valbaca.com/advent2015/day1"
-	"valbaca.com/advent2015/day10"
-	"valbaca.com/advent2015/day11"
-	"valbaca.com/advent2015/day12"
-	"valbaca.com/advent2015/day13"
-	"valbaca.com/advent2015/day14"
-	"valbaca.com/advent2015/day15"
-	"valbaca.com/advent2015/day16"
-	"valbaca.com/advent2015/day17"
-	"valbaca.com/advent2015/day18"
-	"valbaca.com/advent2015/day19"
-	"valbaca.com/advent2015/day2"
-	"valbaca.com/advent2015/day3"
-	"valbaca.com/advent2015/day4"
-	"valbaca.com/advent2015/day5"
-	"valbaca.com/advent2015/day6"
-	"valbaca.com/advent2015/day7"
-	"valbaca.com/advent2015/day8"
-	"valbaca.com/advent2015/day9"
+	"valbaca.com/advent2015/year2015/day1"
+	"valbaca.com/advent2015/year2015/day10"
+	"valbaca.com/advent2015/year2015/day11"
+	"valbaca.com/advent2015/year2015/day12"
+	"valbaca.com/advent2015/year2015/day13"
+	"valbaca.com/advent2015/year2015/day14"
+	"valbaca.com/advent2015/year2015/day15"
+	"valbaca.com/advent2015/year2015/day16"
+	"valbaca.com/advent2015/year2015/day17"
+	"valbaca.com/advent2015/year2015/day18"
+	"valbaca.com/advent2015/year2015/day19"
+	"valbaca.com/advent2015/year2015/day2"
+	"valbaca.com/advent2015/year2015/day3"
+	"valbaca.com/advent2015/year2015/day4"
+	"valbaca.com/advent2015/year2015/day5"
+	"valbaca.com/advent2015/year2015/day6"
+	"valbaca.com/advent2015/year2015/day7"
+	"valbaca.com/advent2015/year2015/day8"
+	"valbaca.com/advent2015/year2015/day9"
 )
 
 func main() {
-	day := getDay()
-	if day == 0 {
-		for i := 1; i <= 19; i++ {
-			start := time.Now()
 
-			fmt.Printf("Day %d: ", i)
-			executeDay(i)
+	year, day := getYearAndDay()
+	if year == 0 || day == 0 {
+		years := []int{2015}
+		for _, y := range years {
+			for d := 1; d <= 19; d++ {
+				start := time.Now()
 
-			elapsed := time.Since(start)
-			fmt.Printf("took %.4f\n\n", elapsed.Seconds())
+				fmt.Printf("Day %d: ", d)
+				execute(y, d)
+
+				elapsed := time.Since(start)
+				fmt.Printf("took %.6fs\n\n", elapsed.Seconds())
+			}
 		}
+
 	} else {
-		executeDay(day)
+		execute(year, day)
 	}
 }
 
-func executeDay(day int) {
-	input := readInputFile(day)
+func execute(year, day int) {
+	input := readInputFile(year, day)
 	input = strings.TrimSpace(input)
 	switch day {
 	case 1:
@@ -92,19 +96,23 @@ func executeDay(day int) {
 	}
 }
 
-func getDay() int {
+func getYearAndDay() (int, int) {
 	if len(os.Args) < 2 {
-		return 0
+		return 0, 0
 	}
-	day, err := strconv.Atoi(os.Args[1])
+	year, err := strconv.Atoi(os.Args[1])
 	if err != nil {
-		return 0
+		return 0, 0
 	}
-	return day
+	day, err := strconv.Atoi(os.Args[2])
+	if err != nil {
+		return 0, 0
+	}
+	return year, day
 }
 
-func readInputFile(day int) string {
-	name := fmt.Sprintf("./inputs/day%v.txt", day)
+func readInputFile(year, day int) string {
+	name := fmt.Sprintf("./year%v/inputs/day%v.txt", year, day)
 	out, err := ioutil.ReadFile(name)
 	if err != nil {
 		panic(err)
