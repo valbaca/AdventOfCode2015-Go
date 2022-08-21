@@ -6,14 +6,20 @@ package day20
 // For an "empty" slice with some capacity (for known growth):
 //	use `xs := make([]int, 0, cap)` and use `xs = append(xs, x)`
 //
+// And yet again, Go is incredibly fast. 10x python's speed
 import (
 	"math"
 	"valbaca.com/advent/elf"
 )
 
-const BEGIN int = 1 // optimization from Python impl, not really needed for Go
+var BEGIN int = 700000 // optimization from Python impl, not really needed for Go. Reset to 1 for unit tests
 
 func Part1(target int) int {
+	if target > 1000 {
+		BEGIN = 700_000
+	} else {
+		BEGIN = 1
+	}
 	for houseNum := BEGIN; houseNum < elf.MaxInt; houseNum++ {
 		facts := factors(houseNum)
 		presents := elf.Sum(facts) * 10

@@ -63,9 +63,12 @@ func Dedupe(a []int) []int {
 	for _, n := range a {
 		set[n] = true
 	}
-	deduped := make([]int, 0, len(set))
-	for k, _ := range set {
-		deduped = append(deduped, k)
+	// in The Future, may be able to just: maps.Keys(set) but avoiding /x/exp imports...for now.
+	deduped := make([]int, len(set))
+	i := 0
+	for key := range set {
+		deduped[i] = key
+		i++
 	}
 	return deduped
 }
