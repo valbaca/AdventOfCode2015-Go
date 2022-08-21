@@ -12,7 +12,7 @@ import (
 func Part1(in string) string {
 	n := in
 	for i := 0; i < 40; i++ {
-		n = LookAndSay(n)
+		n = lookAndSay(n)
 	}
 	return fmt.Sprintf("%v", len(n))
 }
@@ -20,12 +20,12 @@ func Part1(in string) string {
 func Part2(in string) string {
 	n := in
 	for i := 0; i < 50; i++ {
-		n = LookAndSay(n)
+		n = lookAndSay(n)
 	}
 	return fmt.Sprintf("%v", len(n))
 }
 
-func LookAndSay(n string) string {
+func lookAndSay(n string) string {
 	// Buffer is WAAAYY faster than strings
 	// runtime when from >10mins to 0.4s
 	var buffer bytes.Buffer

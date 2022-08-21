@@ -14,16 +14,16 @@ func Part1(in string) string {
 	count := 0
 	ss := strings.Split(in, "\n")
 	for _, s := range ss {
-		if IsNice(s) {
+		if isNice(s) {
 			count++
 		}
 	}
 	return strconv.Itoa(count)
 }
 
-var VOWELS = [...]rune{'a', 'e', 'i', 'o', 'u'}
+var vowels = [...]rune{'a', 'e', 'i', 'o', 'u'}
 
-var NaughtyPrev = map[rune]rune{
+var naughtyPrev = map[rune]rune{
 	// curr : prev
 	'b': 'a',
 	'd': 'c',
@@ -31,7 +31,7 @@ var NaughtyPrev = map[rune]rune{
 	'y': 'x',
 }
 
-func IsNice(s string) bool {
+func isNice(s string) bool {
 	if len(s) < 3 {
 		return false
 	}
@@ -39,7 +39,7 @@ func IsNice(s string) bool {
 	dub := false
 	var p rune
 	for i, r := range s {
-		if vowels < 3 && IsVowel(r) {
+		if vowels < 3 && isVowel(r) {
 			vowels++
 		}
 		if i == 0 {
@@ -49,7 +49,7 @@ func IsNice(s string) bool {
 		if !dub && p == r {
 			dub = true
 		}
-		if IsNaughtyPair(p, r) {
+		if isNaughtyPair(p, r) {
 			return false
 		}
 		p = r
@@ -57,8 +57,8 @@ func IsNice(s string) bool {
 	return vowels >= 3 && dub
 }
 
-func IsVowel(r rune) bool {
-	for _, v := range VOWELS {
+func isVowel(r rune) bool {
+	for _, v := range vowels {
 		if v == r {
 			return true
 		}
@@ -66,26 +66,26 @@ func IsVowel(r rune) bool {
 	return false
 }
 
-func IsNaughtyPair(p, r rune) bool {
-	return p == NaughtyPrev[r]
+func isNaughtyPair(p, r rune) bool {
+	return p == naughtyPrev[r]
 }
 
 func Part2(in string) string {
 	count := 0
 	ss := strings.Split(in, "\n")
 	for _, s := range ss {
-		if IsNicer(s) {
+		if isNicer(s) {
 			count++
 		}
 	}
 	return strconv.Itoa(count)
 }
 
-func IsNicer(s string) bool {
-	return HasPair(s) && HasDouble(s)
+func isNicer(s string) bool {
+	return hasPair(s) && hasDouble(s)
 }
 
-func HasPair(s string) bool {
+func hasPair(s string) bool {
 	if len(s) < 4 {
 		return false
 	}
@@ -101,7 +101,7 @@ func HasPair(s string) bool {
 	return false
 }
 
-func HasDouble(s string) bool {
+func hasDouble(s string) bool {
 	if len(s) < 3 {
 		return false
 	}

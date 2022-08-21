@@ -2,16 +2,16 @@
 // Elves are wrapping boxes with WxLxH and need to calculate wrapping paper
 // square area and ribbon length
 // TIL: pros/cons of go...
-//   pros: multi-value returns, strings.Split(s, pattern)
-//   cons: no ternary operator, awkward string<->int conversions
+//
+//	pros: multi-value returns, strings.Split(s, pattern)
+//	cons: no ternary operator, awkward string<->int conversions
 package day2
 
 import (
 	"fmt"
 	"strconv"
 	"strings"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 // Part1 wrapping paper is straightforward. Most of the trouble is converting
@@ -20,6 +20,9 @@ func Part1(in string) string {
 	ss := strings.Split(in, "\n")
 	var sum int
 	for _, s := range ss {
+		if s == "" {
+			continue
+		}
 		a, b, c := toInts(s)
 		surface := getSurface(a, b, c)
 		slack := getSlack(a, b, c)
@@ -41,6 +44,9 @@ func Part2(in string) string {
 	ss := strings.Split(in, "\n")
 	var sum int
 	for _, s := range ss {
+		if s == "" {
+			continue
+		}
 		a, b, c := toInts(s)
 		sum += getRibbon(a, b, c)
 		sum += getBow(a, b, c)
@@ -62,7 +68,7 @@ func toInts(line string) (int, int, int) {
 	if len(ss) < 3 {
 		panic(fmt.Sprintf("couldn't split %s", line))
 	}
-	return utils.Atoi(ss[0]), utils.Atoi(ss[1]), utils.Atoi(ss[2])
+	return elf.UnsafeAtoi(ss[0]), elf.UnsafeAtoi(ss[1]), elf.UnsafeAtoi(ss[2])
 }
 
 func getMinAndMid(a, b, c int) (int, int) {

@@ -10,7 +10,7 @@ var cornersStuckOn bool
 type Grid [][]bool
 
 func Part1(in string, n, cycles int) string {
-	grid := ParseInput(in, n)
+	grid := parseInput(in, n)
 	for i := 0; i < cycles; i++ {
 		grid = grid.next()
 	}
@@ -22,8 +22,8 @@ func Part2(in string, n, cycles int) string {
 	return Part1(in, n, cycles)
 }
 
-func ParseInput(in string, n int) Grid {
-	grid := NewGrid(n)
+func parseInput(in string, n int) Grid {
+	grid := newGrid(n)
 	for r, line := range strings.Split(in, "\n") {
 		for c, char := range line {
 			grid[r][c] = (char == '#')
@@ -33,7 +33,7 @@ func ParseInput(in string, n int) Grid {
 	return grid
 }
 
-func NewGrid(n int) Grid {
+func newGrid(n int) Grid {
 	grid := make([][]bool, n)
 	for i := 0; i < n; i++ {
 		grid[i] = make([]bool, n)
@@ -53,7 +53,7 @@ func (g Grid) countOn() (count int) {
 }
 
 func (g Grid) next() Grid {
-	n := NewGrid(len(g))
+	n := newGrid(len(g))
 	for r, row := range g {
 		for c, bit := range row {
 			n[r][c] = g.nextBit(bit, r, c)

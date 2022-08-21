@@ -70,9 +70,9 @@ func TestCountLit(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := CountLit(tt.given)
+			actual := countLit(tt.given)
 			if actual != tt.expected {
-				t.Errorf("CountLit(%v): expected %v, actual %v", tt.given, tt.expected, actual)
+				t.Errorf("countLit(%v): expected %v, actual %v", tt.given, tt.expected, actual)
 			}
 
 		})

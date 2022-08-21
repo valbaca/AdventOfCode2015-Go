@@ -1,3 +1,3 @@
-module valbaca.com/advent2015
+module valbaca.com/advent
 
 go 1.18

@@ -7,34 +7,40 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"valbaca.com/advent2015/year2015/day1"
-	"valbaca.com/advent2015/year2015/day10"
-	"valbaca.com/advent2015/year2015/day11"
-	"valbaca.com/advent2015/year2015/day12"
-	"valbaca.com/advent2015/year2015/day13"
-	"valbaca.com/advent2015/year2015/day14"
-	"valbaca.com/advent2015/year2015/day15"
-	"valbaca.com/advent2015/year2015/day16"
-	"valbaca.com/advent2015/year2015/day17"
-	"valbaca.com/advent2015/year2015/day18"
-	"valbaca.com/advent2015/year2015/day19"
-	"valbaca.com/advent2015/year2015/day2"
-	"valbaca.com/advent2015/year2015/day3"
-	"valbaca.com/advent2015/year2015/day4"
-	"valbaca.com/advent2015/year2015/day5"
-	"valbaca.com/advent2015/year2015/day6"
-	"valbaca.com/advent2015/year2015/day7"
-	"valbaca.com/advent2015/year2015/day8"
-	"valbaca.com/advent2015/year2015/day9"
+	"valbaca.com/advent/year2015/day1"
+	"valbaca.com/advent/year2015/day10"
+	"valbaca.com/advent/year2015/day11"
+	"valbaca.com/advent/year2015/day12"
+	"valbaca.com/advent/year2015/day13"
+	"valbaca.com/advent/year2015/day14"
+	"valbaca.com/advent/year2015/day15"
+	"valbaca.com/advent/year2015/day16"
+	"valbaca.com/advent/year2015/day17"
+	"valbaca.com/advent/year2015/day18"
+	"valbaca.com/advent/year2015/day19"
+	"valbaca.com/advent/year2015/day2"
+	"valbaca.com/advent/year2015/day3"
+	"valbaca.com/advent/year2015/day4"
+	"valbaca.com/advent/year2015/day5"
+	"valbaca.com/advent/year2015/day6"
+	"valbaca.com/advent/year2015/day7"
+	"valbaca.com/advent/year2015/day8"
+	"valbaca.com/advent/year2015/day9"
+	y16d1 "valbaca.com/advent/year2016/day1"
 )
+
+var daysSolvedByYear = map[int]int{
+	2015: 19,
+}
 
 func main() {
 
 	year, day := getYearAndDay()
 	if year == 0 || day == 0 {
+		// execute all solutions from all years
 		years := []int{2015}
 		for _, y := range years {
-			for d := 1; d <= 19; d++ {
+			for d := 1; d <= daysSolvedByYear[y]; d++ {
 				start := time.Now()
 
 				fmt.Printf("Day %d: ", d)
@@ -53,6 +59,41 @@ func main() {
 func execute(year, day int) {
 	input := readInputFile(year, day)
 	input = strings.TrimSpace(input)
+	switch year {
+	case 2015:
+		executeYear2015(day, input)
+	case 2016:
+		executeYear2016(day, input)
+	default:
+		fmt.Printf("Invalid or incomplete year: %d\n", year)
+	}
+}
+
+func getYearAndDay() (int, int) {
+	if len(os.Args) < 2 {
+		return 0, 0
+	}
+	year, err := strconv.Atoi(os.Args[1])
+	if err != nil {
+		return 0, 0
+	}
+	day, err := strconv.Atoi(os.Args[2])
+	if err != nil {
+		return 0, 0
+	}
+	return year, day
+}
+
+func readInputFile(year, day int) string {
+	name := fmt.Sprintf("./year%v/inputs/day%v.txt", year, day)
+	out, err := ioutil.ReadFile(name)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "(No input file for year %v, day%v)\n", year, day)
+	}
+	return string(out)
+}
+
+func executeYear2015(day int, input string) {
 	switch day {
 	case 1:
 		fmt.Println(day1.Part1(input), day1.Part2(input))
@@ -96,26 +137,9 @@ func execute(year, day int) {
 	}
 }
 
-func getYearAndDay() (int, int) {
-	if len(os.Args) < 2 {
-		return 0, 0
+func executeYear2016(day int, input string) {
+	switch day {
+	case 1:
+		fmt.Println(y16d1.Howdy())
 	}
-	year, err := strconv.Atoi(os.Args[1])
-	if err != nil {
-		return 0, 0
-	}
-	day, err := strconv.Atoi(os.Args[2])
-	if err != nil {
-		return 0, 0
-	}
-	return year, day
-}
-
-func readInputFile(year, day int) string {
-	name := fmt.Sprintf("./year%v/inputs/day%v.txt", year, day)
-	out, err := ioutil.ReadFile(name)
-	if err != nil {
-		panic(err)
-	}
-	return string(out)
 }

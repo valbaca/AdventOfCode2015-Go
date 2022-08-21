@@ -3,22 +3,21 @@
 package day8
 
 import (
+	"strconv"
 	"strings"
-
-	"valbaca.com/advent2015/utils"
 )
 
 // between 1222, 1344
 // guess 1: 1507
 func Part1(in string) string {
-	return utils.SumOverLines(in, GetOverhead)
+	return sumOverLines(in, getOverhead)
 }
 
 func Part2(in string) string {
-	return utils.SumOverLines(in, GetAddedOverhead)
+	return sumOverLines(in, getAddedOverhead)
 }
 
-func GetOverhead(s string) int {
+func getOverhead(s string) int {
 	oh := 2
 	sp := strings.Split(s, "")
 	for i := 1; i < len(sp)-1; i++ {
@@ -37,7 +36,7 @@ func GetOverhead(s string) int {
 }
 
 // [0,2719)
-func GetAddedOverhead(s string) int {
+func getAddedOverhead(s string) int {
 	oh := 2
 	sp := strings.Split(s, "")
 	for i := 0; i < len(sp); i++ {
@@ -47,4 +46,13 @@ func GetAddedOverhead(s string) int {
 		}
 	}
 	return oh
+}
+
+func sumOverLines(in string, f func(string) int) string {
+	lines := strings.Split(in, "\n")
+	sum := 0
+	for _, line := range lines {
+		sum += f(line)
+	}
+	return strconv.Itoa(sum)
 }

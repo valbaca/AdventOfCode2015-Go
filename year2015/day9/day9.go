@@ -7,8 +7,7 @@ package day9
 import (
 	"fmt"
 	"strings"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 var minDist, maxDist int
@@ -19,7 +18,10 @@ func BothParts(in string) string {
 	chart := &Chart{}
 	lines := strings.Split(in, "\n")
 	for _, line := range lines {
-		ReadLine(line, chart)
+		if line == "" {
+			continue
+		}
+		readLine(line, chart)
 	}
 	printAllPaths(chart)
 	return fmt.Sprintf("min=%v,max=%v", minDist, maxDist)
@@ -40,19 +42,19 @@ type Chart map[string]Location
 
 type Visited []Location
 
-func ReadLine(s string, c *Chart) {
-	edge := SplitLine(s)
+func readLine(s string, c *Chart) {
+	edge := splitLine(s)
 	c.addBiEdge(edge)
 }
 
-func SplitLine(s string) Edge {
-	sp := strings.Split(s, " ")
+func splitLine(s string) Edge {
+	sp := strings.Split(strings.TrimSpace(s), " ")
 	// London to Dublin = 464
 	// 0      1  2      3 4
 	if len(sp) < 5 {
-		panic("not enough words to SplitLine")
+		panic("not enough words to splitLine")
 	}
-	from, to, dist := sp[0], sp[2], utils.Atoi(sp[4])
+	from, to, dist := sp[0], sp[2], elf.UnsafeAtoi(sp[4])
 	return Edge{from, to, dist}
 }
 

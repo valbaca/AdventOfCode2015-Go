@@ -27,7 +27,7 @@ const CONC = 3
 
 func work(jobs chan int, found chan Soln, key, prefix string) {
 	for n := range jobs {
-		hash := GetHash(key, n)
+		hash := getHash(key, n)
 		if strings.HasPrefix(hash, prefix) {
 			found <- Soln{n, strconv.Itoa(n)}
 			return
@@ -56,7 +56,7 @@ func findPrefix(in string, prefix string) string {
 	return (<-found).s
 }
 
-func GetHash(key string, n int) string {
+func getHash(key string, n int) string {
 	data := []byte(fmt.Sprintf("%s%d", key, n))
 	return fmt.Sprintf("%x", md5.Sum(data))
 }

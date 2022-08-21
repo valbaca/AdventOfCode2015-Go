@@ -5,8 +5,7 @@ package day14
 import (
 	"strconv"
 	"strings"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 type raindeer struct {
@@ -19,15 +18,15 @@ type raindeer struct {
 }
 
 func Part1(in string, stop int) string {
-	deers := ParseInput(in)
-	dists := CalcDists(deers, stop)
-	return strconv.Itoa(utils.Max(dists...))
+	deers := parseInput(in)
+	dists := calcDists(deers, stop)
+	return strconv.Itoa(elf.Max(dists...))
 }
 
 func Part2(in string, stop int) string {
-	deers := ParseInput(in)
+	deers := parseInput(in)
 	for i := 1; i <= stop; i++ {
-		dists := CalcDists(deers, i)
+		dists := calcDists(deers, i)
 		max, maxIndex := dists[0], 0
 		for j := 1; j < len(dists); j++ {
 			if dists[j] > max {
@@ -37,7 +36,7 @@ func Part2(in string, stop int) string {
 		}
 		(&deers[maxIndex]).incPoints()
 	}
-	maxPoints := utils.MinInt
+	maxPoints := elf.MinInt
 	for _, deer := range deers {
 		if deer.points > maxPoints {
 			maxPoints = deer.points
@@ -46,33 +45,33 @@ func Part2(in string, stop int) string {
 	return strconv.Itoa(maxPoints)
 }
 
-func ParseInput(in string) []raindeer {
+func parseInput(in string) []raindeer {
 	out := []raindeer{}
 	for _, line := range strings.Split(in, "\n") {
-		out = append(out, ParseLine(line))
+		out = append(out, parseLine(line))
 	}
 	return out
 }
 
-func ParseLine(line string) raindeer {
+func parseLine(line string) raindeer {
 	// Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.
 	// 0     1   2   3  4    5   6  7        8   9    10   11   12  13  14
 	sp := strings.Split(line, " ")
-	speed := utils.Atoi(sp[3])
-	stamina := utils.Atoi(sp[6])
-	sleep := utils.Atoi(sp[13])
+	speed := elf.UnsafeAtoi(sp[3])
+	stamina := elf.UnsafeAtoi(sp[6])
+	sleep := elf.UnsafeAtoi(sp[13])
 	return raindeer{speed, stamina, sleep, stamina + sleep, speed * stamina, 0}
 }
 
-func CalcDists(rdeers []raindeer, stop int) []int {
+func calcDists(rdeers []raindeer, stop int) []int {
 	out := []int{}
 	for _, deer := range rdeers {
-		out = append(out, deer.CalcDist(stop))
+		out = append(out, deer.calcDist(stop))
 	}
 	return out
 }
 
-func (rd raindeer) CalcDist(time int) int {
+func (rd *raindeer) calcDist(time int) int {
 	// |---|----|
 	dist := 0
 	if time >= rd.period {

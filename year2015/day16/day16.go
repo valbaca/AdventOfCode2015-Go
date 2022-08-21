@@ -6,8 +6,7 @@ import (
 	"fmt"
 	"strings"
 	"unicode"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 var outdatedRetroencabulator bool
@@ -28,14 +27,14 @@ type Aunt struct {
 
 func Part1(in string) string {
 	outdatedRetroencabulator = false
-	return FindMatchingAunt(in)
+	return findMatchingAunt(in)
 }
 func Part2(in string) string {
 	outdatedRetroencabulator = true
-	return FindMatchingAunt(in)
+	return findMatchingAunt(in)
 }
-func FindMatchingAunt(in string) string {
-	aunts := ParseInput(in)
+func findMatchingAunt(in string) string {
+	aunts := parseInput(in)
 	ticker := Aunt{-1, 3, 7, 2, 3, 0, 0, 5, 3, 2, 1}
 	for _, aunt := range aunts {
 		if ticker.matches(aunt) {
@@ -45,24 +44,24 @@ func FindMatchingAunt(in string) string {
 	return "no aunt found"
 }
 
-func ParseInput(in string) []Aunt {
+func parseInput(in string) []Aunt {
 	aunts := []Aunt{}
 	for _, line := range strings.Split(in, "\n") {
-		aunts = append(aunts, ParseLine(line))
+		aunts = append(aunts, parseLine(line))
 	}
 	return aunts
 }
 
-func ParseLine(line string) Aunt {
+func parseLine(line string) Aunt {
 	// Sue 1: goldfish: 6, trees: 9, akitas: 0
 	// 0   1  2         3  4      5  6       7
 	aunt := Aunt{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
 	split := strings.FieldsFunc(line, func(r rune) bool {
 		return unicode.IsSpace(r) || unicode.IsPunct(r)
 	})
-	aunt.number = utils.Atoi(split[1])
+	aunt.number = elf.UnsafeAtoi(split[1])
 	for i := 2; i < len(split)-1; i += 2 {
-		key, val := split[i], utils.Atoi(split[i+1])
+		key, val := split[i], elf.UnsafeAtoi(split[i+1])
 		if key == "children" {
 			aunt.children = val
 		}

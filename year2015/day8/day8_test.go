@@ -17,7 +17,7 @@ func TestGetOverhead(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := GetOverhead(tt.given)
+			actual := getOverhead(tt.given)
 			if actual != tt.expected {
 				t.Errorf("`%s`: expected %v, actual %v", tt.given, tt.expected, actual)
 			}
@@ -47,7 +47,7 @@ func TestGetAddedOverhead(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := GetAddedOverhead(tt.given)
+			actual := getAddedOverhead(tt.given)
 			if actual != tt.expected {
 				t.Errorf("(%s): expected %v, actual %v", tt.given, tt.expected, actual)
 			}

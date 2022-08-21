@@ -22,7 +22,7 @@ func TestIsNice(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := IsNice(tt.given)
+			actual := isNice(tt.given)
 			if actual != tt.expected {
 				t.Errorf("(%s): expected %v, actual %v", tt.given, tt.expected, actual)
 			}
@@ -51,9 +51,9 @@ func TestIsVowel(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := IsVowel(tt.given)
+			actual := isVowel(tt.given)
 			if actual != tt.expected {
-				t.Errorf("IsVowel(%v): expected %v, actual %v", tt.given, tt.expected, actual)
+				t.Errorf("isVowel(%v): expected %v, actual %v", tt.given, tt.expected, actual)
 			}
 
 		})
@@ -77,7 +77,7 @@ func TestIsNaughtyPair(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := IsNaughtyPair(tt.givenP, tt.givenR)
+			actual := isNaughtyPair(tt.givenP, tt.givenR)
 			if actual != tt.expected {
 				t.Errorf("(%q,%q): expected %v, actual %v", tt.givenP, tt.givenR, tt.expected, actual)
 			}
@@ -101,7 +101,7 @@ func TestIsNicer(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := IsNicer(tt.given)
+			actual := isNicer(tt.given)
 			if actual != tt.expected {
 				t.Errorf("(%s): expected %v, actual %v", tt.given, tt.expected, actual)
 			}
@@ -123,7 +123,7 @@ func TestHasPair(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := HasPair(tt.given)
+			actual := hasPair(tt.given)
 			if actual != tt.expected {
 				t.Errorf("(%s): expected %v, actual %v", tt.given, tt.expected, actual)
 			}
@@ -149,7 +149,7 @@ func TestHasDouble(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := HasDouble(tt.given)
+			actual := hasDouble(tt.given)
 			if actual != tt.expected {
 				t.Errorf("(%s): expected %v, actual %v", tt.given, tt.expected, actual)
 			}

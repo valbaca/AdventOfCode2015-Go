@@ -8,8 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 const (
@@ -64,32 +63,32 @@ func (c Command) executeDim(dims [][]uint) [][]uint {
 }
 
 func Part1(in string) string {
-	lights := MakeLights()
+	lights := makeLights()
 	ss := strings.Split(in, "\n")
 	for _, s := range ss {
 		if s == "" {
 			continue
 		}
-		cmd := MakeCommand(s)
+		cmd := makeCommand(s)
 		lights = cmd.execute(lights)
 	}
-	return strconv.Itoa(CountLit(lights))
+	return strconv.Itoa(countLit(lights))
 }
 
 func Part2(in string) string {
-	dims := MakeDims()
+	dims := makeDims()
 	ss := strings.Split(in, "\n")
 	for _, s := range ss {
 		if s == "" {
 			continue
 		}
-		cmd := MakeCommand(s)
+		cmd := makeCommand(s)
 		dims = cmd.executeDim(dims)
 	}
-	return fmt.Sprint(CountDims(dims))
+	return fmt.Sprint(countDims(dims))
 }
 
-func MakeLights() [][]bool {
+func makeLights() [][]bool {
 	lights := make([][]bool, 1000)
 	for i := range lights {
 		lights[i] = make([]bool, 1000)
@@ -97,7 +96,7 @@ func MakeLights() [][]bool {
 	return lights
 }
 
-func MakeDims() [][]uint {
+func makeDims() [][]uint {
 	dims := make([][]uint, 1000)
 	for i := range dims {
 		dims[i] = make([]uint, 1000)
@@ -105,7 +104,7 @@ func MakeDims() [][]uint {
 	return dims
 }
 
-func CountDims(dims [][]uint) uint {
+func countDims(dims [][]uint) uint {
 	var bright uint
 	for _, y := range dims {
 		for _, dim := range y {
@@ -115,7 +114,7 @@ func CountDims(dims [][]uint) uint {
 	return bright
 }
 
-func CountLit(lights [][]bool) int {
+func countLit(lights [][]bool) int {
 	var count int
 	for _, y := range lights {
 		for _, light := range y {
@@ -127,7 +126,7 @@ func CountLit(lights [][]bool) int {
 	return count
 }
 
-func MakeCommand(s string) Command {
+func makeCommand(s string) Command {
 	var i, op int
 	if strings.HasPrefix(s, "turn off") {
 		i = 9
@@ -140,15 +139,15 @@ func MakeCommand(s string) Command {
 		i = 7
 		op = TOGGLE
 	}
-	return MakeCommandWithOp(s[i:], op)
+	return makeCommandWithOp(s[i:], op)
 }
 
-func MakeCommandWithOp(s string, op int) Command {
+func makeCommandWithOp(s string, op int) Command {
 	ss := strings.FieldsFunc(s, splitPunctSpace)
 	if len(ss) < 5 {
 		panic("Given poor input")
 	}
-	lx, rx, ly, ry := utils.Atoi(ss[0]), utils.Atoi(ss[3]), utils.Atoi(ss[1]), utils.Atoi(ss[4])
+	lx, rx, ly, ry := elf.UnsafeAtoi(ss[0]), elf.UnsafeAtoi(ss[3]), elf.UnsafeAtoi(ss[1]), elf.UnsafeAtoi(ss[4])
 	if lx > rx {
 		lx, rx = rx, lx
 	}

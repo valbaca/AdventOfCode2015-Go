@@ -9,32 +9,31 @@ package day17
 import (
 	"fmt"
 	"strings"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 func Part1(in string, total int) string {
-	buckets := ParseInput(in)
-	return fmt.Sprintf("%v", FindNumCombos(buckets, total))
+	buckets := parseInput(in)
+	return fmt.Sprintf("%v", findNumCombos(buckets, total))
 }
 
 func Part2(in string, total int) string {
-	buckets := ParseInput(in)
-	return fmt.Sprintf("%v", FindNumMinCombos(buckets, total))
+	buckets := parseInput(in)
+	return fmt.Sprintf("%v", findNumMinCombos(buckets, total))
 }
 
-func ParseInput(in string) []int {
+func parseInput(in string) []int {
 	out := []int{}
 	for _, line := range strings.Split(in, "\n") {
-		out = append(out, utils.Atoi(line))
+		out = append(out, elf.UnsafeAtoi(line))
 	}
 	return out
 }
 
-func FindNumCombos(buckets []int, total int) int {
+func findNumCombos(buckets []int, total int) int {
 	count := 0
 	for i := 0; i < (1 << uint(len(buckets))); i++ {
-		sum, _ := SumSubset(buckets, i)
+		sum, _ := sumSubset(buckets, i)
 		if sum == total {
 			count++
 		}
@@ -42,11 +41,11 @@ func FindNumCombos(buckets []int, total int) int {
 	return count
 }
 
-func FindNumMinCombos(buckets []int, total int) int {
+func findNumMinCombos(buckets []int, total int) int {
 	count := 0
-	minNumBucket := utils.MaxInt
+	minNumBucket := elf.MaxInt
 	for i := 0; i < (1 << uint(len(buckets))); i++ {
-		sum, setLen := SumSubset(buckets, i)
+		sum, setLen := sumSubset(buckets, i)
 		if sum == total {
 			if setLen < minNumBucket {
 				// new lowest count
@@ -62,8 +61,8 @@ func FindNumMinCombos(buckets []int, total int) int {
 
 // This was my original approach, but I realized I didn't need the actual subsets
 // and appending arrays was expensive (or would be IRL)
-// So I used SumSubset instead, which sped up runtime from 0.67s to 0.19s
-func MakeSubSet(buckets []int, bits int) []int {
+// So I used sumSubset instead, which sped up runtime from 0.67s to 0.19s
+func makeSubSet(buckets []int, bits int) []int {
 	out := []int{}
 	for _, x := range buckets {
 		bit := bits % 2
@@ -76,7 +75,7 @@ func MakeSubSet(buckets []int, bits int) []int {
 }
 
 // Faster than MakeSubSet by just doing the math inline and not creating a slice
-func SumSubset(buckets []int, bits int) (sum, length int) {
+func sumSubset(buckets []int, bits int) (sum, length int) {
 	for _, x := range buckets {
 		if bits%2 == 1 {
 			sum += x

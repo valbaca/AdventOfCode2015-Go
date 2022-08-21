@@ -6,41 +6,40 @@ import (
 	"fmt"
 	"math/big"
 	"strings"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 const TotalTsp = 100
 const TargetCals = 500
 
 func Part1(in string) string {
-	parts := ParseInput(in)
-	return Optimize(parts, GetScore)
+	parts := parseInput(in)
+	return optimize(parts, getScore)
 }
 
 func Part2(in string) string {
-	parts := ParseInput(in)
-	return Optimize(parts, GetScoreCal)
+	parts := parseInput(in)
+	return optimize(parts, getScoreCal)
 }
 
-func ParseInput(in string) []Part {
+func parseInput(in string) []Part {
 	out := []Part{}
 	for _, line := range strings.Split(in, "\n") {
-		out = append(out, ParseLine(line))
+		out = append(out, parseLine(line))
 	}
 	return out
 }
 
-func ParseLine(line string) Part {
+func parseLine(line string) Part {
 	// Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
 	// 0             1        2   3          4   5      6  7       8  9        10
 	sp := strings.Split(line, " ")
 	name := sp[0]
-	capacity := int64(utils.ParseInt(sp[2]))
-	durability := int64(utils.ParseInt(sp[4]))
-	flavor := int64(utils.ParseInt(sp[6]))
-	texture := int64(utils.ParseInt(sp[8]))
-	calories := int64(utils.ParseInt(sp[10]))
+	capacity := int64(elf.ParseInt(sp[2]))
+	durability := int64(elf.ParseInt(sp[4]))
+	flavor := int64(elf.ParseInt(sp[6]))
+	texture := int64(elf.ParseInt(sp[8]))
+	calories := int64(elf.ParseInt(sp[10]))
 	return Part{name, capacity, durability, flavor, texture, calories}
 }
 
@@ -60,14 +59,14 @@ type Measurements struct {
 	part Part
 }
 
-func Optimize(parts []Part, fn scoreFunc) string {
+func optimize(parts []Part, fn scoreFunc) string {
 	drink := []Measurements{}
-	return fmt.Sprintf("%v", OptRecur(parts, TotalTsp, drink, fn))
+	return fmt.Sprintf("%v", optRecur(parts, TotalTsp, drink, fn))
 }
 
 type scoreFunc func(d []Measurements) *big.Int
 
-func OptRecur(parts []Part, left int64, drink []Measurements, fn scoreFunc) *big.Int {
+func optRecur(parts []Part, left int64, drink []Measurements, fn scoreFunc) *big.Int {
 	if len(parts) == 1 {
 		rest := Measurements{left, parts[0]}
 		d := append(drink[:0:0], drink...)
@@ -80,7 +79,7 @@ func OptRecur(parts []Part, left int64, drink []Measurements, fn scoreFunc) *big
 		m := Measurements{i, parts[0]}
 		d := append(drink[:0:0], drink...)
 		d = append(d, m)
-		score := OptRecur(parts[1:], left-i, d, fn)
+		score := optRecur(parts[1:], left-i, d, fn)
 		if score.Cmp(max) > 0 {
 			max = score
 		}
@@ -88,7 +87,7 @@ func OptRecur(parts []Part, left int64, drink []Measurements, fn scoreFunc) *big
 	return max
 }
 
-func GetScore(d []Measurements) *big.Int {
+func getScore(d []Measurements) *big.Int {
 	var capSum, durSum, flavSum, texSum int64
 	for _, m := range d {
 		t, p := m.tsp, m.part
@@ -107,7 +106,7 @@ func GetScore(d []Measurements) *big.Int {
 	return score
 }
 
-func GetScoreCal(d []Measurements) *big.Int {
+func getScoreCal(d []Measurements) *big.Int {
 	var capSum, durSum, flavSum, texSum, calSum int64
 	for _, m := range d {
 		t, p := m.tsp, m.part

@@ -8,19 +8,19 @@ import (
 )
 
 func Part1(in, s string) string {
-	reps := ParseInput(in)
-	return fmt.Sprintf("%v", CountDistincts(reps, s))
+	reps := parseInput(in)
+	return fmt.Sprintf("%v", countDistincts(reps, s))
 }
 
 func Part2(in, s string) string {
-	reps := ParseInput(in)
-	return fmt.Sprintf("%v", MinPath(reps, "e", s))
+	reps := parseInput(in)
+	return fmt.Sprintf("%v", minPath(reps, "e", s))
 }
 
-type Replacements map[string][]string
+type replacements map[string][]string
 
-func ParseInput(in string) Replacements {
-	reps := Replacements{}
+func parseInput(in string) replacements {
+	reps := replacements{}
 
 	for _, line := range strings.Split(in, "\n") {
 		fields := strings.Fields(line)
@@ -34,12 +34,12 @@ func ParseInput(in string) Replacements {
 	return reps
 }
 
-func CountDistincts(reps Replacements, s string) int {
-	set := GetNewUniques(reps, s)
+func countDistincts(reps replacements, s string) int {
+	set := getNewUniques(reps, s)
 	return len(set)
 }
 
-func GetNewUniques(reps Replacements, s string) map[string]bool {
+func getNewUniques(reps replacements, s string) map[string]bool {
 	set := map[string]bool{}
 	for a, list := range reps {
 		for _, b := range list {
@@ -62,7 +62,7 @@ func GetNewUniques(reps Replacements, s string) map[string]bool {
 	return set
 }
 
-func MinPath(reps Replacements, org, tgt string) int {
+func minPath(reps replacements, org, tgt string) int {
 	red := buildRed(reps)
 	atom := tgt
 	count := 0
@@ -89,7 +89,7 @@ func MinPath(reps Replacements, org, tgt string) int {
 
 type Pair struct{ lng, short string }
 
-func buildRed(reps Replacements) []Pair {
+func buildRed(reps replacements) []Pair {
 	var red []Pair
 	for short, lngs := range reps {
 		for _, lng := range lngs {

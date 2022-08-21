@@ -10,8 +10,7 @@ package day13
 import (
 	"strconv"
 	"strings"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 type name string
@@ -21,21 +20,24 @@ type feelings map[name]int
 type people map[name]feelings
 
 func Part1(in string) string {
-	people := ParseInput(in)
-	return strconv.Itoa(FindOptimal(people))
+	people := parseInput(in)
+	return strconv.Itoa(findOptimal(people))
 }
 
 func Part2(in string) string {
-	people := ParseInput(in)
+	people := parseInput(in)
 	people.addNilSelf()
-	return strconv.Itoa(FindOptimal(people))
+	return strconv.Itoa(findOptimal(people))
 }
 
-func ParseInput(in string) people {
+func parseInput(in string) people {
 	p := people{}
 	sp := strings.Split(in, "\n")
 	for _, line := range sp {
-		a, diff, b := ParseLine(line)
+		if line == "" {
+			continue
+		}
+		a, diff, b := parseLine(line)
 		p.addFeeling(name(a), name(b), diff)
 	}
 	return p
@@ -56,7 +58,7 @@ func (p people) getFeeling(a, b name) int {
 	return (p[a])[b]
 }
 
-func ParseLine(line string) (string, int, string) {
+func parseLine(line string) (string, int, string) {
 	// Alice would gain 54 happiness units by sitting next to Bob.
 	// 0     1     2    3  4         5     6  7       8    9  10
 	sp := strings.Split(line, " ")
@@ -68,7 +70,7 @@ func ParseLine(line string) (string, int, string) {
 	if gainOrLose == "gain" {
 		pos = true
 	}
-	diff := utils.Atoi(diffStr)
+	diff := elf.UnsafeAtoi(diffStr)
 	if !pos {
 		diff = -1 * diff
 	}
@@ -76,14 +78,14 @@ func ParseLine(line string) (string, int, string) {
 	return a, diff, b
 }
 
-func FindOptimal(p people) int {
-	return FindRecur([]name{}, p)
+func findOptimal(p people) int {
+	return findRecur([]name{}, p)
 }
 
-func FindRecur(s []name, p people) int {
+func findRecur(s []name, p people) int {
 	seated := append(s[:0:0], s...) // clone
 	if len(seated) == len(p) {
-		return SumHappiness(seated, p)
+		return sumHappiness(seated, p)
 	}
 	toAttemptInSeat := []name{}
 	for name := range p {
@@ -91,11 +93,11 @@ func FindRecur(s []name, p people) int {
 			toAttemptInSeat = append(toAttemptInSeat, name)
 		}
 	}
-	max := utils.MinInt
+	max := elf.MinInt
 	n := len(toAttemptInSeat)
 	maxes := make(chan int, n)
 	for _, attempt := range toAttemptInSeat {
-		go SubFindRecur(seated, attempt, p, maxes)
+		go subFindRecur(seated, attempt, p, maxes)
 	}
 	for i := 0; i < n; i++ {
 		m := <-maxes
@@ -106,9 +108,9 @@ func FindRecur(s []name, p people) int {
 	return max
 }
 
-func SubFindRecur(seated []name, attempt name, p people, results chan int) {
+func subFindRecur(seated []name, attempt name, p people, results chan int) {
 	attemptedSeating := append(seated, attempt)
-	recurResult := FindRecur(attemptedSeating, p)
+	recurResult := findRecur(attemptedSeating, p)
 	results <- recurResult
 }
 
@@ -121,7 +123,7 @@ func contains(names []name, query name) bool {
 	return false
 }
 
-func SumHappiness(seatings []name, p people) int {
+func sumHappiness(seatings []name, p people) int {
 	sum := 0
 	for i := 0; i < len(seatings)-1; i++ {
 		a, b := seatings[i], seatings[i+1]

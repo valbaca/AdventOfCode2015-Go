@@ -37,9 +37,9 @@ func TestGetHash(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := GetHash(tt.givenStr, tt.givenInt)
+			actual := getHash(tt.givenStr, tt.givenInt)
 			if actual != tt.expected {
-				t.Errorf("GetHash(%s%d): expected %s, actual %s", tt.givenStr, tt.givenInt, tt.expected, actual)
+				t.Errorf("getHash(%s%d): expected %s, actual %s", tt.givenStr, tt.givenInt, tt.expected, actual)
 			}
 
 		})

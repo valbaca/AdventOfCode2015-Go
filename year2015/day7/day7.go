@@ -1,7 +1,9 @@
 // Package day7
 // TIL: There is no bitwise NOT operator (usually ~ in most languages)
-//      Bitwise NOT is used to flip all the bits
-//      So instead, use ^x which is equivalent to 1s ^ x
+//
+//	Bitwise NOT is used to flip all the bits
+//	So instead, use ^x which is equivalent to 1s ^ x
+//
 // TIL: this was the first real large problem that involved breaking it down
 // into discrete steps. Choosing a good struct and changing it as needed was
 // key to solving this well.
@@ -12,13 +14,12 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-
-	"valbaca.com/advent2015/utils"
+	"valbaca.com/advent/elf"
 )
 
 func Part1(in, key string) string {
-	wires := ReadInWires(in)
-	val, err := GetVal(key, wires)
+	wires := readInWires(in)
+	val, err := getVal(key, wires)
 	if err != nil {
 		panic(err)
 	}
@@ -26,25 +27,25 @@ func Part1(in, key string) string {
 }
 
 func Part2(in, key string) string {
-	wires := ReadInWires(in)
-	origA, err := GetVal(key, wires)
+	wires := readInWires(in)
+	origA, err := getVal(key, wires)
 	if err != nil {
 		panic(err)
 	}
-	wires = ReadInWires(in)
-	wires["b"] = Wire{"SET", nil, "b", origA} // Override before re-running GetVal
-	val, err := GetVal(key, wires)
+	wires = readInWires(in)
+	wires["b"] = Wire{"SET", nil, "b", origA} // Override before re-running getVal
+	val, err := getVal(key, wires)
 	if err != nil {
 		panic(err)
 	}
 	return fmt.Sprint(val)
 }
 
-func ReadInWires(in string) map[string]Wire {
+func readInWires(in string) map[string]Wire {
 	lines := strings.Split(in, "\n")
 	wires := make(map[string]Wire) //, 26*26)
 	for _, line := range lines {
-		wire, err := ReadLine(line)
+		wire, err := readLine(line)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -62,22 +63,22 @@ type Wire struct {
 	arg uint16   // integer argument, used for SET, LSHIFT, and RSHIFT
 }
 
-func ReadLine(s string) (*Wire, error) {
+func readLine(s string) (*Wire, error) {
 	sp := strings.Split(s, " ")
 	if strings.Contains(s, "AND") {
-		return ReadAndOr(sp)
+		return readAndOr(sp)
 	} else if strings.Contains(s, "OR") {
-		return ReadAndOr(sp)
+		return readAndOr(sp)
 	} else if strings.Contains(s, "SHIFT") {
-		return ReadShift(sp)
+		return readShift(sp)
 	} else if strings.Contains(s, "NOT") {
-		return ReadNot(sp)
+		return readNot(sp)
 	}
 	// value assignment, easy!
-	return ReadSet(sp)
+	return readSet(sp)
 }
 
-func ReadNot(s []string) (*Wire, error) {
+func readNot(s []string) (*Wire, error) {
 	// NOT x -> h
 	if len(s) < 4 {
 		return nil, errors.New("NOT couldn't parse")
@@ -85,16 +86,16 @@ func ReadNot(s []string) (*Wire, error) {
 	op, x, out := s[0], s[1], s[3]
 	return &Wire{op, []string{x}, out, 0}, nil
 }
-func ReadShift(s []string) (*Wire, error) {
+func readShift(s []string) (*Wire, error) {
 	// x LSHIFT 2 -> f
 	if len(s) < 5 {
 		return nil, errors.New("SHIFT couldn't parse")
 	}
-	x, op, arg, out := s[0], s[1], utils.AtoUint16(s[2]), s[4]
+	x, op, arg, out := s[0], s[1], elf.UnsafeAtoUint16(s[2]), s[4]
 	return &Wire{op, []string{x}, out, arg}, nil
 }
 
-func ReadAndOr(s []string) (*Wire, error) {
+func readAndOr(s []string) (*Wire, error) {
 	// x AND y -> out
 	if len(s) != 5 {
 		return nil, errors.New("AND/OR couldn't parse")
@@ -103,7 +104,7 @@ func ReadAndOr(s []string) (*Wire, error) {
 	return &Wire{op, []string{x, y}, out, 0}, nil
 }
 
-func ReadSet(s []string) (*Wire, error) {
+func readSet(s []string) (*Wire, error) {
 	op := "SET"
 	if len(s) != 3 {
 		return nil, errors.New("SET couldn't parse")
@@ -115,7 +116,7 @@ func ReadSet(s []string) (*Wire, error) {
 	return &Wire{op, []string{lh}, rh, 0}, nil
 }
 
-func GetVal(key string, wires map[string]Wire) (uint16, error) {
+func getVal(key string, wires map[string]Wire) (uint16, error) {
 	wire, ok := wires[key]
 	if !ok {
 		// one last try...
@@ -129,18 +130,18 @@ func GetVal(key string, wires map[string]Wire) (uint16, error) {
 		if wire.ins == nil {
 			return wire.arg, nil
 		}
-		out, err := GetVal(wire.ins[0], wires)
+		out, err := getVal(wire.ins[0], wires)
 		if err != nil {
 			return 0, err
 		}
 		//wires[wire.out] = Wire{"SET", nil, wire.out, out} // optimization?
 		return out, nil
 	case "AND":
-		x, err := GetVal(wire.ins[0], wires)
+		x, err := getVal(wire.ins[0], wires)
 		if err != nil {
 			return 0, err
 		}
-		y, err := GetVal(wire.ins[1], wires)
+		y, err := getVal(wire.ins[1], wires)
 		if err != nil {
 			return 0, err
 		}
@@ -148,11 +149,11 @@ func GetVal(key string, wires map[string]Wire) (uint16, error) {
 		//wires[wire.out] = Wire{"SET", nil, wire.out, out} // optimization?
 		return out, nil
 	case "OR":
-		x, err := GetVal(wire.ins[0], wires)
+		x, err := getVal(wire.ins[0], wires)
 		if err != nil {
 			return 0, err
 		}
-		y, err := GetVal(wire.ins[1], wires)
+		y, err := getVal(wire.ins[1], wires)
 		if err != nil {
 			return 0, err
 		}
@@ -160,7 +161,7 @@ func GetVal(key string, wires map[string]Wire) (uint16, error) {
 		wires[wire.out] = Wire{"SET", nil, wire.out, out} // optimization?
 		return out, nil
 	case "LSHIFT":
-		x, err := GetVal(wire.ins[0], wires)
+		x, err := getVal(wire.ins[0], wires)
 		if err != nil {
 			return 0, err
 		}
@@ -168,7 +169,7 @@ func GetVal(key string, wires map[string]Wire) (uint16, error) {
 		//wires[wire.out] = Wire{"SET", nil, wire.out, out} // optimization?
 		return out, nil
 	case "RSHIFT":
-		x, err := GetVal(wire.ins[0], wires)
+		x, err := getVal(wire.ins[0], wires)
 		if err != nil {
 			return 0, err
 		}
@@ -176,7 +177,7 @@ func GetVal(key string, wires map[string]Wire) (uint16, error) {
 		//wires[wire.out] = Wire{"SET", nil, wire.out, out} // optimization?
 		return out, nil
 	case "NOT":
-		x, err := GetVal(wire.ins[0], wires)
+		x, err := getVal(wire.ins[0], wires)
 		if err != nil {
 			return 0, err
 		}

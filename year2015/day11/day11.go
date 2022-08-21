@@ -1,5 +1,5 @@
 // Package day11
-//TIL: use %c to convert byte to char in stringf
+// TIL: use %c to convert byte to char in stringf
 package day11
 
 import (
@@ -8,22 +8,22 @@ import (
 )
 
 func Part1(in string) string {
-	return FindNextValidPassword(in)
+	return findNextValidPassword(in)
 }
 
 func Part2(in string) string {
-	return FindNextValidPassword(Part1(in))
+	return findNextValidPassword(Part1(in))
 }
 
-func FindNextValidPassword(s string) string {
-	curr := NextWord(s)
-	for !ValidPassword(curr) {
-		curr = NextWord(curr)
+func findNextValidPassword(s string) string {
+	curr := nextWord(s)
+	for !validPassword(curr) {
+		curr = nextWord(curr)
 	}
 	return curr
 }
 
-func NextWord(s string) string {
+func nextWord(s string) string {
 	out := make([]byte, len(s))
 	copy(out, s)
 	carry := false
@@ -49,15 +49,15 @@ func NextWord(s string) string {
 	}
 }
 
-func ValidPassword(s string) bool {
-	return HasStraight(s) && HasPairs(s) && !HasAmbigious(s)
+func validPassword(s string) bool {
+	return hasStraight(s) && hasPairs(s) && !hasAmbigious(s)
 }
 
-func HasAmbigious(s string) bool {
+func hasAmbigious(s string) bool {
 	return strings.ContainsAny(s, "iol")
 }
 
-func HasStraight(s string) bool {
+func hasStraight(s string) bool {
 	for i := 0; i < len(s)-2; i++ {
 		now := s[i]
 		nxt := s[i+1]
@@ -69,12 +69,12 @@ func HasStraight(s string) bool {
 	return false
 }
 
-func HasPairs(s string) bool {
-	pairs := GetPairs(s)
+func hasPairs(s string) bool {
+	pairs := getPairs(s)
 	return len(pairs) >= 2
 }
 
-func GetPairs(s string) []string {
+func getPairs(s string) []string {
 	pairSet := map[string]bool{}
 	for i := 0; i < len(s)-1; i++ {
 		if s[i] == s[i+1] {

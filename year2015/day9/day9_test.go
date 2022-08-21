@@ -16,7 +16,7 @@ func TestSplitLine(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			actual := SplitLine(tt.given)
+			actual := splitLine(tt.given)
 			if actual != tt.expected {
 				t.Errorf("(%s): expected %+v, actual %+v", tt.given, tt.expected, actual)
 			}
