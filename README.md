@@ -19,10 +19,14 @@ For example:
 ```go
 func PartX(s string) {
 	/* ... */
-	PartXActual(someStruct)
+	someStruct := parseInput(s)
+	actual(someStruct)
 }
+```
 
-func PartXActual(s Struct) {
-	/*...*/
-}
+## Tips
+
+Use [watchexec](https://watchexec.github.io/) to automatically re-run the code on file save:
+```shell
+$ watchexec go run main.go [year] [day]
 ```

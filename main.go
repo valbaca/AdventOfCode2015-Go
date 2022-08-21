@@ -19,6 +19,7 @@ import (
 	"valbaca.com/advent/year2015/day18"
 	"valbaca.com/advent/year2015/day19"
 	"valbaca.com/advent/year2015/day2"
+	"valbaca.com/advent/year2015/day20"
 	"valbaca.com/advent/year2015/day3"
 	"valbaca.com/advent/year2015/day4"
 	"valbaca.com/advent/year2015/day5"
@@ -31,14 +32,26 @@ import (
 
 var daysSolvedByYear = map[int]int{
 	2015: 19,
+	2016: 1,
 }
 
 func main() {
+	// Usage:
+	// go run main.go               # no args => run all solutions
+	// go run main.go [year] [day]  # run a specific year and day
+	// go run main.go "latest"		# runs only the latest day's solution, tip: use watchexec
+
+	if len(os.Args) >= 2 && os.Args[1] == "latest" {
+		execute(2015, 20)
+		return
+	}
 
 	year, day := getYearAndDay()
-	if year == 0 || day == 0 {
+	if year > 0 && day > 0 {
+		execute(year, day)
+	} else {
 		// execute all solutions from all years
-		years := []int{2015}
+		years := []int{2015, 2016}
 		for _, y := range years {
 			for d := 1; d <= daysSolvedByYear[y]; d++ {
 				start := time.Now()
@@ -51,8 +64,6 @@ func main() {
 			}
 		}
 
-	} else {
-		execute(year, day)
 	}
 }
 
@@ -134,6 +145,8 @@ func executeYear2015(day int, input string) {
 	case 19:
 		molecule := "CRnCaSiRnBSiRnFArTiBPTiTiBFArPBCaSiThSiRnTiBPBPMgArCaSiRnTiMgArCaSiThCaSiRnFArRnSiRnFArTiTiBFArCaCaSiRnSiThCaCaSiRnMgArFYSiRnFYCaFArSiThCaSiThPBPTiMgArCaPRnSiAlArPBCaCaSiRnFYSiThCaRnFArArCaCaSiRnPBSiRnFArMgYCaCaCaCaSiThCaCaSiAlArCaCaSiRnPBSiAlArBCaCaCaCaSiThCaPBSiThPBPBCaSiRnFYFArSiThCaSiRnFArBCaCaSiRnFYFArSiThCaPBSiThCaSiRnPMgArRnFArPTiBCaPRnFArCaCaCaCaSiRnCaCaSiRnFYFArFArBCaSiThFArThSiThSiRnTiRnPMgArFArCaSiThCaPBCaSiRnBFArCaCaPRnCaCaPMgArSiRnFYFArCaSiThRnPBPMgAr"
 		fmt.Println(day19.Part1(input, molecule), day19.Part2(input, molecule))
+	case 20:
+		fmt.Println(day20.Part1(33100000), day20.Part2(33100000))
 	}
 }
 

@@ -49,3 +49,23 @@ func ParseInt(s string) int {
 	}
 	return UnsafeAtoi(s)
 }
+
+func Sum(a []int) int {
+	s := 0
+	for _, n := range a {
+		s += n
+	}
+	return s
+}
+
+func Dedupe(a []int) []int {
+	set := make(map[int]bool)
+	for _, n := range a {
+		set[n] = true
+	}
+	deduped := make([]int, 0, len(set))
+	for k, _ := range set {
+		deduped = append(deduped, k)
+	}
+	return deduped
+}
