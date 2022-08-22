@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
@@ -10,6 +9,12 @@ import (
 	"valbaca.com/advent/year2015"
 	"valbaca.com/advent/year2016"
 )
+
+var daysSolvedByYear = map[int]int{
+	2015: 25,
+	2016: 1,
+	// UPDATE ME!
+}
 
 func main() {
 	// Usage:
@@ -75,15 +80,10 @@ func getYearAndDay() (int, int) {
 
 func readInputFile(year, day int) string {
 	name := fmt.Sprintf("./year%v/inputs/day%v.txt", year, day)
-	out, err := ioutil.ReadFile(name)
+	out, err := os.ReadFile(name)
 	if err != nil {
+		// I'm tempted to remove this, but then immediately I forget to create an input file when I need it lol
 		fmt.Fprintf(os.Stderr, "(No input file for year %v, day%v)\n", year, day)
 	}
 	return string(out)
-}
-
-var daysSolvedByYear = map[int]int{
-	2015: 25,
-	2016: 1,
-	// UPDATE ME!
 }
