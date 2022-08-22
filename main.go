@@ -21,6 +21,7 @@ import (
 	"valbaca.com/advent/year2015/day2"
 	"valbaca.com/advent/year2015/day20"
 	"valbaca.com/advent/year2015/day21"
+	"valbaca.com/advent/year2015/day22"
 	"valbaca.com/advent/year2015/day3"
 	"valbaca.com/advent/year2015/day4"
 	"valbaca.com/advent/year2015/day5"
@@ -32,7 +33,7 @@ import (
 )
 
 var daysSolvedByYear = map[int]int{
-	2015: 21,
+	2015: 22,
 	2016: 1,
 }
 
@@ -43,7 +44,8 @@ func main() {
 	// go run main.go "latest"		# runs only the latest day's solution, tip: use watchexec
 
 	if len(os.Args) >= 2 && os.Args[1] == "latest" {
-		execute(2015, 21)
+		currYear := 2015
+		execute(currYear, daysSolvedByYear[currYear])
 		return
 	}
 
@@ -150,6 +152,8 @@ func executeYear2015(day int, input string) {
 		fmt.Println(day20.Part1(33100000), day20.Part2(33100000))
 	case 21:
 		fmt.Println(day21.Part1(input, 100, 103, 9, 2), day21.Part2(input, 100, 103, 9, 2))
+	case 22:
+		fmt.Println(day22.Part1(), day22.Part2())
 	}
 }
 
