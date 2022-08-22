@@ -59,6 +59,14 @@ func Sum(a []int) int {
 	return s
 }
 
+func Product(a []int) int64 {
+	var p int64 = 1
+	for _, n := range a {
+		p *= int64(n)
+	}
+	return p
+}
+
 func Dedupe(a []int) []int {
 	set := make(map[int]bool)
 	for _, n := range a {

@@ -1,5 +1,11 @@
 package day23
 
+/*
+TIL: I do miss my `sep` function from Clojure, got stuck on a single comma for too long.
+`sep` was basically the ideal scanner function, split on whitespace, colons and commas and safely attempted to convert
+strings to ints. That's the kind of thing dynamic languages can do that static languages just really cannot (at least
+not easily).
+*/
 import (
 	"strconv"
 	"strings"
