@@ -5,9 +5,14 @@ Solutions to Advent of Code problems in Go.
 ## Running
 
 ```shell
-go run main.go               # runs all solutions
-go run main.go [year] [day]  # runs a particular day
-go run main.go latest        # runs the last day solved
+go build && ./advent
+# or simply:
+go run main.go
+
+advent # runs all solutions
+advent latest        # runs the last day solved
+advent [year] [day]  # runs a particular day
+advent 2015 1        # for example
 ```
 
 (Nearly) Every day contains a "TIL" (Today I Learned) message that explains something about Go that I learned.
