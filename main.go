@@ -22,6 +22,7 @@ import (
 	"valbaca.com/advent/year2015/day20"
 	"valbaca.com/advent/year2015/day21"
 	"valbaca.com/advent/year2015/day22"
+	"valbaca.com/advent/year2015/day23"
 	"valbaca.com/advent/year2015/day3"
 	"valbaca.com/advent/year2015/day4"
 	"valbaca.com/advent/year2015/day5"
@@ -31,11 +32,6 @@ import (
 	"valbaca.com/advent/year2015/day9"
 	y16d1 "valbaca.com/advent/year2016/day1"
 )
-
-var daysSolvedByYear = map[int]int{
-	2015: 22,
-	2016: 1,
-}
 
 func main() {
 	// Usage:
@@ -154,6 +150,9 @@ func executeYear2015(day int, input string) {
 		fmt.Println(day21.Part1(input, 100, 103, 9, 2), day21.Part2(input, 100, 103, 9, 2))
 	case 22:
 		fmt.Println(day22.Part1(), day22.Part2())
+	case 23:
+		fmt.Println(day23.Part1(input), day23.Part2(input))
+		// UPDATE ME!
 	}
 }
 
@@ -162,4 +161,10 @@ func executeYear2016(day int, input string) {
 	case 1:
 		fmt.Println(y16d1.Howdy())
 	}
+}
+
+var daysSolvedByYear = map[int]int{
+	2015: 23,
+	2016: 1,
+	// UPDATE ME!
 }

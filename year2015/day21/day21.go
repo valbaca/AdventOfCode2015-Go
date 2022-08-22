@@ -4,7 +4,6 @@ package day21
 // actual list of permutations, I get indexes, which I then take and use to generate the actual permutations.
 // Also used a scanner for the first time to parse the item data
 import (
-	"bufio"
 	"fmt"
 	"gonum.org/v1/gonum/stat/combin"
 	"strings"
@@ -179,15 +178,7 @@ func (c *Ch) equip(items ...Item) {
 }
 
 func itemFromLine(line string) Item {
-	splits := make([]string, 0, 4)
-	// https://pkg.go.dev/bufio#example-Scanner-Words
-	// https://stackoverflow.com/questions/38026530/a-better-way-to-use-scanner-for-multiple-tokens-per-line
-	scanner := bufio.NewScanner(strings.NewReader(line))
-	scanner.Split(bufio.ScanWords)
-	for scanner.Scan() {
-		word := scanner.Text()
-		splits = append(splits, word)
-	}
+	splits := elf.SplitWords(line)
 	if len(splits) == 0 || len(splits) > 4 {
 		panic(fmt.Sprintf("error processing item line %v", line))
 	}

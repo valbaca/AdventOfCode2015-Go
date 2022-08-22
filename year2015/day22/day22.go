@@ -26,7 +26,7 @@ func run(spells []Spell, minFound int, hardMode bool) int {
 	if result == failure || (result == victory && cost >= minFound) {
 		return minFound // terminate: died or did worse than best
 	} else if result == victory && cost < minFound {
-		println("New Min found!", cost)
+		//println("New Min found!", cost)
 		return cost
 	}
 	for _, spell := range Spells {

@@ -3,6 +3,7 @@
 package elf
 
 import (
+	"bufio"
 	"strconv"
 	"strings"
 )
@@ -71,4 +72,17 @@ func Dedupe(a []int) []int {
 		i++
 	}
 	return deduped
+}
+
+func SplitWords(s string) []string {
+	// https://pkg.go.dev/bufio#example-Scanner-Words
+	// https://stackoverflow.com/questions/38026530/a-better-way-to-use-scanner-for-multiple-tokens-per-line
+	var splits []string
+	scanner := bufio.NewScanner(strings.NewReader(s))
+	scanner.Split(bufio.ScanWords)
+	for scanner.Scan() {
+		word := scanner.Text()
+		splits = append(splits, word)
+	}
+	return splits
 }
