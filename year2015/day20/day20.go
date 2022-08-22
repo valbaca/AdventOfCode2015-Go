@@ -6,7 +6,7 @@ package day20
 // For an "empty" slice with some capacity (for known growth):
 //	use `xs := make([]int, 0, cap)` and use `xs = append(xs, x)`
 //
-// And yet again, Go is incredibly fast. 10x python's speed
+// And yet again, Go is incredibly fast. ~50x python's speed
 import (
 	"math"
 	"valbaca.com/advent/elf"
