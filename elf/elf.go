@@ -67,6 +67,13 @@ func Product(a []int) int64 {
 	return p
 }
 
+func Abs(x int) int {
+	if x < 0 {
+		return -1 * x
+	}
+	return x
+}
+
 func Dedupe(a []int) []int {
 	set := make(map[int]bool)
 	for _, n := range a {

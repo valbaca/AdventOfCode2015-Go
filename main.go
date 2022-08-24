@@ -6,13 +6,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"valbaca.com/advent/elf"
 	"valbaca.com/advent/year2015"
 	"valbaca.com/advent/year2016"
 )
 
 var daysSolvedByYear = map[int]int{
 	2015: 25,
-	2016: 1,
+	2016: 4,
 	// UPDATE ME!
 }
 
@@ -23,12 +24,15 @@ func main() {
 	// go run main.go "latest"		# runs only the latest day's solution, tip: use watchexec
 
 	if len(os.Args) >= 2 && os.Args[1] == "latest" {
-		currYear := 2015
+		currYear := 0
+		for y := range daysSolvedByYear {
+			currYear = elf.Max(currYear, y)
+		}
 		execute(currYear, daysSolvedByYear[currYear])
 		return
 	}
 
-	year, day := getYearAndDay()
+	year, day := getYearAndDayFromArgs()
 	if year > 0 && day > 0 {
 		execute(year, day)
 	} else {
@@ -63,7 +67,17 @@ func execute(year, day int) {
 	}
 }
 
-func getYearAndDay() (int, int) {
+func readInputFile(year, day int) string {
+	name := fmt.Sprintf("./year%v/inputs/day%v.txt", year, day)
+	out, err := os.ReadFile(name)
+	if err != nil {
+		// I'm tempted to remove this, but then immediately I forget to create an inputs file and I need it again!
+		fmt.Fprintf(os.Stderr, "(No inputs file for year %v, day%v)\n", year, day)
+	}
+	return string(out)
+}
+
+func getYearAndDayFromArgs() (int, int) {
 	if len(os.Args) < 2 {
 		return 0, 0
 	}
@@ -76,14 +90,4 @@ func getYearAndDay() (int, int) {
 		return 0, 0
 	}
 	return year, day
-}
-
-func readInputFile(year, day int) string {
-	name := fmt.Sprintf("./year%v/inputs/day%v.txt", year, day)
-	out, err := os.ReadFile(name)
-	if err != nil {
-		// I'm tempted to remove this, but then immediately I forget to create an input file when I need it lol
-		fmt.Fprintf(os.Stderr, "(No input file for year %v, day%v)\n", year, day)
-	}
-	return string(out)
 }
