@@ -1,7 +1,8 @@
 package day4
 
 /*
-TIL:
+TIL: needing to copy in a priority queue implementation and needing to have it be hard-coded to one specific use case is
+...not ideal? Tons easier in Python and even Java
 */
 import (
 	"container/heap"

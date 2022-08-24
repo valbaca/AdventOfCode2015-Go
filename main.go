@@ -13,7 +13,7 @@ import (
 
 var daysSolvedByYear = map[int]int{
 	2015: 25,
-	2016: 4,
+	2016: 5,
 	// UPDATE ME!
 }
 
@@ -41,13 +41,7 @@ func main() {
 		for _, y := range years {
 			fmt.Printf("🎄 Year %v 🎄\n\n", y)
 			for d := 1; d <= daysSolvedByYear[y]; d++ {
-				start := time.Now()
-
-				fmt.Printf("Day %d: ", d)
 				execute(y, d)
-
-				elapsed := time.Since(start)
-				fmt.Printf("took %.6fs\n\n", elapsed.Seconds())
 			}
 		}
 
@@ -55,8 +49,10 @@ func main() {
 }
 
 func execute(year, day int) {
+	fmt.Printf("Year:%v Day:%v\n", year, day)
 	input := readInputFile(year, day)
 	input = strings.TrimSpace(input)
+	start := time.Now()
 	switch year {
 	case 2015:
 		year2015.ExecuteYear2015(day, input)
@@ -65,6 +61,8 @@ func execute(year, day int) {
 	default:
 		fmt.Printf("Invalid or incomplete year: %d\n", year)
 	}
+	elapsed := time.Since(start)
+	fmt.Printf("took %.6fs\n\n", elapsed.Seconds())
 }
 
 func readInputFile(year, day int) string {
