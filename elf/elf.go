@@ -101,3 +101,17 @@ func SplitWords(s string) []string {
 	}
 	return splits
 }
+
+func Lines(s string) []string {
+	return strings.Split(s, "\n")
+}
+
+func CountLines(lines []string, test func(s string) bool) int {
+	count := 0
+	for _, line := range lines {
+		if test(line) {
+			count++
+		}
+	}
+	return count
+}

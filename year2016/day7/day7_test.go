@@ -11,12 +11,11 @@ func TestPart1(t *testing.T) {
 		args args
 		want string
 	}{
-		{"", args{`
-aba[bab]xyz
-xyx[xyx]xyx
-aaa[kek]eke
-zazbz[bzb]cdb`}, "3",
-		}}
+		{"", args{`abba[mnop]qrst
+abcd[bddb]xyyx
+aaaa[qwer]tyui
+ioxxoj[asdfgh]zxcvbn`,
+		}, "3"}}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := Part1(tt.args.input); got != tt.want {
@@ -35,7 +34,10 @@ func TestPart2(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{"", args{`aba[bab]xyz
+xyx[xyx]xyx
+aaa[kek]eke
+zazbz[bzb]cdb`}, "3"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

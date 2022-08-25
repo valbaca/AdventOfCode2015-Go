@@ -1,5 +1,8 @@
 package day6
 
+/*
+TIL: pretty easy day. Just using a Counter would've been trivial in Python.
+*/
 import (
 	"strings"
 	"unicode/utf8"
