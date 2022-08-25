@@ -26,6 +26,14 @@ func UnsafeAtoi(s string) int {
 	}
 }
 
+func UnsafeAtoi64(s string) int64 {
+	if out, err := strconv.ParseInt(s, 10, 64); err != nil {
+		panic(err)
+	} else {
+		return out
+	}
+}
+
 func UnsafeAtoUint16(s string) uint16 {
 	if out, err := strconv.ParseUint(s, 10, 16); err != nil {
 		panic(err)
