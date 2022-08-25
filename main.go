@@ -13,8 +13,7 @@ import (
 
 var daysSolvedByYear = map[int]int{
 	2015: 25,
-	2016: 5,
-	// UPDATE ME!
+	2016: 7, // UPDATE ME!
 }
 
 func main() {

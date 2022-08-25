@@ -7,6 +7,8 @@ import (
 	"valbaca.com/advent/year2016/day3"
 	"valbaca.com/advent/year2016/day4"
 	"valbaca.com/advent/year2016/day5"
+	"valbaca.com/advent/year2016/day6"
+	"valbaca.com/advent/year2016/day7"
 )
 
 func ExecuteYear2016(day int, input string) {
@@ -21,5 +23,10 @@ func ExecuteYear2016(day int, input string) {
 		fmt.Println(day4.Part1(input), day4.Part2(input))
 	case 5:
 		fmt.Println(day5.Part1(input), day5.Part2(input))
+	case 6:
+		fmt.Println(day6.Part1(input), day6.Part2(input))
+	case 7:
+		fmt.Println(day7.Part1(input), day7.Part2(input))
+
 	}
 }
