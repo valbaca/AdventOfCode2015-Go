@@ -115,3 +115,41 @@ func CountLines(lines []string, test func(s string) bool) int {
 	}
 	return count
 }
+
+// Rotate array to the right by n. To rotate to the left, use negative n.
+func Rotate(a []int, n int) []int {
+	out := make([]int, len(a))
+	for i := 0; i < len(a); i++ {
+		j := Mod(i+n, len(a))
+		out[j] = a[i]
+	}
+	return out
+}
+
+// Mod performs the modulus operation, x mod y.
+// The answer is always within the range of 0...|y| and has the sign of y
+// Use this when you want a safe value within a range...like with indexing, i.e. a[-1] == a[len(a)-1]
+// Note: many people pronounce `%` as "mod" but it's actually "remainder" or "rem"
+// See https://clojuredocs.org/clojure.core/mod
+func Mod(x, y int) int {
+	if x == 0 {
+		return 0
+	}
+	rem := x % y
+	if Sign(x) == Sign(y) {
+		return rem
+	} else {
+		return rem + y
+	}
+}
+
+// Sign returns 1, 0, or -1 if n is positive, zero, or negative
+func Sign(n int) int {
+	if n > 0 {
+		return 1
+	} else if n == 0 {
+		return 0
+	} else {
+		return -1
+	}
+}
