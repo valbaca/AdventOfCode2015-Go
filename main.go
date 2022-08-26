@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
 	"valbaca.com/advent/elf"
 	"valbaca.com/advent/year2015"
 	"valbaca.com/advent/year2016"
@@ -13,7 +14,7 @@ import (
 
 var daysSolvedByYear = map[int]int{
 	2015: 25,
-	2016: 10, // UPDATE ME!
+	2016: 11, // UPDATE ME!
 }
 
 func main() {

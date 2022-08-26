@@ -1,5 +1,8 @@
 package day10
 
+/*
+TIL: Trying out VS Code to wean off of GoLand (just in case I want to stick to purely free tools in the future)
+*/
 import (
 	"sort"
 	"strconv"
@@ -13,8 +16,8 @@ var output string
 
 func Part1(input string) string {
 	lines := elf.Lines(input)
-	bots = map[int]*Bot{}
-	outputs = map[int]int{}
+	bots = make(map[int]*Bot)
+	outputs = make(map[int]int)
 	for _, line := range lines {
 		readLine(line)
 	}
