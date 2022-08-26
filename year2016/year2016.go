@@ -2,7 +2,9 @@ package year2016
 
 import (
 	"fmt"
+
 	"valbaca.com/advent/year2016/day1"
+	"valbaca.com/advent/year2016/day10"
 	"valbaca.com/advent/year2016/day2"
 	"valbaca.com/advent/year2016/day3"
 	"valbaca.com/advent/year2016/day4"
@@ -33,5 +35,7 @@ func ExecuteYear2016(day int, input string) {
 		fmt.Println(day8.Part1(input), day8.Part2(input))
 	case 9:
 		fmt.Println(day9.Part1(input), day9.Part2(input))
+	case 10:
+		fmt.Println(day10.Part1(input), day10.Part2(input))
 	}
 }
