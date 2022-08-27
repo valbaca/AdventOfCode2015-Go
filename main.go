@@ -27,12 +27,13 @@ func main() {
 	// Then run:
 	// $ go build -o pprofbin main.go && ./pprofbin latest && go tool pprof -http=":8000" pprofbin ./cpu.pprof
 	/*
-		f, perr := os.Create("cpu.pprof")
-		if perr != nil {
-			panic(perr)
-		}
-		pprof.StartCPUProfile(f)
-		defer pprof.StopCPUProfile()
+		// c/o https://www.goodwith.tech/blog/go-pprof
+			f, perr := os.Create("cpu.pprof")
+			if perr != nil {
+				panic(perr)
+			}
+			pprof.StartCPUProfile(f)
+			defer pprof.StopCPUProfile()
 	*/
 	// TODO: use a flag instead of commenting/uncommenting
 
