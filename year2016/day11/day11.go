@@ -1,16 +1,5 @@
 package day11
 
-import (
-	"fmt"
-	"strconv"
-	"strings"
-	"time"
-	"unicode"
-
-	"gonum.org/v1/gonum/stat/combin"
-	"valbaca.com/advent/elf"
-)
-
 /*
 From when I did this one last, I remember it being one of THE hardest Advent problems.
 I had to fall back to Java (my "native" programming language) and had to pull out all kinds of DS+A
@@ -43,6 +32,17 @@ Part 2 took 0.683379s
 47 71
 took 0.798930s
 */
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+	"time"
+	"unicode"
+
+	"gonum.org/v1/gonum/stat/combin"
+	"valbaca.com/advent/elf"
+)
 
 // A few globals purely for speed and simplicity
 var NumFloors int
