@@ -10,14 +10,21 @@ gave direct power, but also led me to feel the need to repeatedly refactor and a
 was just a few lines.
 */
 import (
-	"strconv"
 	"unicode/utf8"
+
 	"valbaca.com/advent/elf"
 )
 
-func Part1(input string) string {
-	lines := elf.Lines(input)
-	return strconv.Itoa(elf.CountLines(lines, supportsTLS))
+type Day7 struct{}
+
+func (d Day7) Part1(input string) interface{} {
+	return elf.CountLines(elf.Lines(input), supportsTLS)
+
+}
+
+func (d Day7) Part2(input string) interface{} {
+	return elf.CountLines(elf.Lines(input), supportsSSL)
+
 }
 
 func supportsTLS(s string) bool {
@@ -47,11 +54,6 @@ func supportsTLS(s string) bool {
 		}
 	}
 	return hasAbbaOutside && !hasAbbaInside
-}
-
-func Part2(input string) string {
-	lines := elf.Lines(input)
-	return strconv.Itoa(elf.CountLines(lines, supportsSSL))
 }
 
 func supportsSSL(s string) bool {

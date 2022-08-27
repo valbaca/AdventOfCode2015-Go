@@ -12,14 +12,23 @@ import (
 	"valbaca.com/advent/elf"
 )
 
-type Cpu map[string]int
-type Cmd []string
+type Day12 struct{}
 
-func Part1(input string) string {
+func (d Day12) Part1(input string) interface{} {
 	cpu := NewCpu()
 	cpu.exec(NewCmds(input))
 	return strconv.Itoa(cpu["a"])
 }
+
+func (d Day12) Part2(input string) interface{} {
+	cpu := NewCpu()
+	cpu["c"] = 1
+	cpu.exec(NewCmds(input))
+	return strconv.Itoa(cpu["a"])
+}
+
+type Cpu map[string]int
+type Cmd []string
 
 func NewCmds(input string) []Cmd {
 	lines := elf.Lines(input)
@@ -64,11 +73,4 @@ func (cpu Cpu) getX(x string) int {
 		return val
 	}
 	return elf.UnsafeAtoi(x)
-}
-
-func Part2(input string) string {
-	cpu := NewCpu()
-	cpu["c"] = 1
-	cpu.exec(NewCmds(input))
-	return strconv.Itoa(cpu["a"])
 }

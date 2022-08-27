@@ -18,7 +18,7 @@ ioxxoj[asdfgh]zxcvbn`,
 		}, "3"}}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Part1(tt.args.input); got != tt.want {
+			if got := (Day7{}).Part1(tt.args.input); got != tt.want {
 				t.Errorf("Part1() = %v, want %v", got, tt.want)
 			}
 		})
@@ -41,7 +41,7 @@ zazbz[bzb]cdb`}, "3"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Part2(tt.args.input); got != tt.want {
+			if got := (Day7{}).Part2(tt.args.input); got != tt.want {
 				t.Errorf("Part2() = %v, want %v", got, tt.want)
 			}
 		})

@@ -5,11 +5,13 @@ TIL: Avoiding copious bounds-checking by using graph/maps instead.
 */
 import "strings"
 
-func Part1(input string) string {
+type Day2 struct{}
+
+func (d Day2) Part1(input string) interface{} {
 	return run(input, keypad)
 }
 
-func Part2(input string) string {
+func (d Day2) Part2(input string) interface{} {
 	return run(input, weirdKeypad)
 }
 

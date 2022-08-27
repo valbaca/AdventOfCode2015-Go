@@ -1,23 +1,34 @@
 package day8
 
-import "valbaca.com/advent/elf"
+import (
+	"strings"
+	"unicode"
+
+	"valbaca.com/advent/elf"
+)
 
 /**
 TIL: with growing familiarity, Go continues to be...very straightforward.
 */
-import (
-	"strconv"
-	"strings"
-	"unicode"
-)
 
-func Part1(input string) string {
+type Day8 struct{}
+
+func (d Day8) Part1(input string) interface{} {
 	lines := elf.Lines(input)
 	grid := NewGrid(50, 6)
 	for _, line := range lines {
 		grid = grid.ExecLine(line)
 	}
-	return strconv.Itoa(grid.CountOn())
+	return grid.CountOn()
+}
+
+func (d Day8) Part2(input string) interface{} {
+	lines := elf.Lines(input)
+	grid := NewGrid(50, 6)
+	for _, line := range lines {
+		grid = grid.ExecLine(line)
+	}
+	return grid.String()
 }
 
 type Grid struct {
@@ -93,15 +104,6 @@ func (g Grid) CountOn() int {
 		count += elf.Sum(row)
 	}
 	return count
-}
-
-func Part2(input string) string {
-	lines := elf.Lines(input)
-	grid := NewGrid(50, 6)
-	for _, line := range lines {
-		grid = grid.ExecLine(line)
-	}
-	return grid.String()
 }
 
 func (g Grid) String() string {

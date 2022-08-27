@@ -6,12 +6,20 @@ TIL: pretty easy day. Just using a Counter would've been trivial in Python.
 import (
 	"strings"
 	"unicode/utf8"
+
 	"valbaca.com/advent/elf"
 )
 
-func Part1(input string) string {
+type Day6 struct{}
+
+func (d Day6) Part1(input string) interface{} {
 	wordLength, counts := countRunes(input)
 	return runeWithHighestCount(wordLength, counts)
+}
+
+func (d Day6) Part2(input string) interface{} {
+	wordLength, counts := countRunes(input)
+	return runeWithLowestCount(wordLength, counts)
 }
 
 func countRunes(input string) (int, []map[rune]int) {
@@ -43,11 +51,6 @@ func runeWithHighestCount(wordLength int, counts []map[rune]int) string {
 		sb.WriteRune(maxRune)
 	}
 	return sb.String()
-}
-
-func Part2(input string) string {
-	wordLength, counts := countRunes(input)
-	return runeWithLowestCount(wordLength, counts)
 }
 
 func runeWithLowestCount(wordLength int, counts []map[rune]int) string {

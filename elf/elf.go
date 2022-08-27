@@ -4,9 +4,22 @@ package elf
 
 import (
 	"bufio"
+	"fmt"
 	"strconv"
 	"strings"
 )
+
+// Day defines a common interface that each day (starting with 2016) can implement, even just using a struct{}
+// This makes is a lot easier to get started on a new day
+type Day interface {
+	Part1(string) interface{}
+	Part2(string) interface{}
+}
+
+// ExecDay executes the code for given day with the provided input
+func ExecDay(day Day, input string) {
+	fmt.Printf("Part 1:\n%v\nPart 2:\n%v\n", day.Part1(input), day.Part2(input))
+}
 
 // c/o https://stackoverflow.com/a/6878625
 // I've flipped the order; it shows how they're derived

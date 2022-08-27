@@ -4,23 +4,23 @@ package day9
 TIL: Now we're talking!! Faster and in fewer lines of code than the Clojure solution.
 */
 import (
-	"strconv"
 	"strings"
 	"unicode/utf8"
+
 	"valbaca.com/advent/elf"
 )
 
 var atoi = elf.UnsafeAtoi
 var atoi64 = elf.UnsafeAtoi64
 
-func Part1(input string) string {
-	count := decode(input, false)
-	return strconv.FormatInt(count, 10)
+type Day9 struct{}
+
+func (d Day9) Part1(input string) interface{} {
+	return decode(input, false)
 }
 
-func Part2(input string) string {
-	count := decode(input, true)
-	return strconv.FormatInt(count, 10)
+func (d Day9) Part2(input string) interface{} {
+	return decode(input, true)
 }
 
 func decode(s string, recur bool) (count int64) {

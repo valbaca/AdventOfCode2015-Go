@@ -7,12 +7,14 @@ On the other hand, running the code takes *far* less time than it takes for the 
 */
 import (
 	"sort"
-	"strconv"
 	"strings"
+
 	"valbaca.com/advent/elf"
 )
 
-func Part1(input string) string {
+type Day3 struct{}
+
+func (d Day3) Part1(input string) interface{} {
 	lines := strings.Split(input, "\n")
 	count := 0
 	for _, line := range lines {
@@ -25,10 +27,10 @@ func Part1(input string) string {
 			count++
 		}
 	}
-	return strconv.Itoa(count)
+	return count
 }
 
-func Part2(input string) string {
+func (d Day3) Part2(input string) interface{} {
 	lines := strings.Split(input, "\n")
 	count := 0
 	allSides := partitionSides(lines)
@@ -37,7 +39,7 @@ func Part2(input string) string {
 			count++
 		}
 	}
-	return strconv.Itoa(count)
+	return count
 }
 
 func isTriangle(sides []int) bool {

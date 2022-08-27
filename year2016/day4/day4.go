@@ -9,10 +9,13 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
+
 	"valbaca.com/advent/elf"
 )
 
-func Part1(input string) string {
+type Day4 struct{}
+
+func (d Day4) Part1(input string) interface{} {
 	rooms := parse(input)
 	ans := 0
 	for _, room := range rooms {
@@ -20,7 +23,7 @@ func Part1(input string) string {
 			ans += room.sectorId
 		}
 	}
-	return strconv.Itoa(ans)
+	return ans
 }
 
 type room struct {
@@ -89,7 +92,7 @@ func (r room) calcChecksum() string {
 	return sb.String()
 }
 
-func Part2(input string) string {
+func (d Day4) Part2(input string) interface{} {
 	rooms := parse(input)
 	for _, room := range rooms {
 		if room.isValid() {

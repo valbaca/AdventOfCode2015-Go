@@ -2,6 +2,9 @@ package day1
 
 import (
 	"strconv"
+	"strings"
+	"unicode"
+
 	"valbaca.com/advent/elf"
 )
 
@@ -9,12 +12,10 @@ import (
 TIL: cannot use a slice as a map key, so had to create a `pos` struct instead. Considered using a string.
 Had to write my own Abs function...getting deja-vu that I've done this before...
 */
-import (
-	"strings"
-	"unicode"
-)
 
-func Part1(input string) string {
+type Day1 struct{}
+
+func (d Day1) Part1(input string) interface{} {
 	dirs := parse(input)
 	x, y, facing := 0, 0, N
 	turn := map[string]int{"L": -1, "R": 1}
@@ -22,11 +23,10 @@ func Part1(input string) string {
 		facing = rotate(facing, turn[dir.lr])
 		x, y = move(x, y, facing, dir.steps)
 	}
-	manhDist := elf.Abs(x) + elf.Abs(y)
-	return strconv.Itoa(manhDist)
+	return elf.Abs(x) + elf.Abs(y)
 }
 
-func Part2(input string) string {
+func (d Day1) Part2(input string) interface{} {
 	dirs := parse(input)
 	x, y, facing := 0, 0, N
 	turn := map[string]int{"L": -1, "R": 1}
@@ -46,8 +46,7 @@ func Part2(input string) string {
 		}
 
 	}
-	manhDist := elf.Abs(x) + elf.Abs(y)
-	return strconv.Itoa(manhDist)
+	return elf.Abs(x) + elf.Abs(y)
 }
 
 type inst struct {

@@ -1,11 +1,11 @@
 package day0
 
-/* Just a blank template for easy copy & paste */
+type Day0 struct{}
 
-func Part1(input string) string {
+func (d Day0) Part1(s string) interface{} {
 	return "TODO"
 }
 
-func Part2(input string) string {
+func (d Day0) Part2(s string) interface{} {
 	return "TODO"
 }

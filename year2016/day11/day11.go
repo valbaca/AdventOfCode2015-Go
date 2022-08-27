@@ -34,32 +34,26 @@ took 0.798930s
 */
 
 import (
-	"fmt"
-	"strconv"
 	"strings"
-	"time"
 	"unicode"
 
 	"gonum.org/v1/gonum/stat/combin"
 	"valbaca.com/advent/elf"
 )
 
-// A few globals purely for speed and simplicity
-var NumFloors int
-var NumItems int
-var LastIso int
+type Day11 struct{}
 
-func Part1(input string) string {
-	start := time.Now()
+func (d Day11) Part1(input string) interface{} {
+	// start := time.Now()
 	state, lastIso := parseInput(input)
 	LastIso = lastIso
 	minMoves := minMoves(state)
-	fmt.Printf("\nPart 1 took %.6fs", time.Since(start).Seconds())
-	return strconv.Itoa(minMoves)
+	// fmt.Printf("\nPart 1 took %.6fs", time.Since(start).Seconds())
+	return minMoves
 }
 
-func Part2(input string) string {
-	start := time.Now()
+func (d Day11) Part2(input string) interface{} {
+	// start := time.Now()
 	state, lastIso := parseInput(input)
 	// Add the new special elements
 	state.floors[0].Add([]Item{
@@ -71,9 +65,14 @@ func Part2(input string) string {
 	LastIso = lastIso + 2
 	NumItems += 4
 	minMoves := minMoves(state)
-	fmt.Printf("\nPart 2 took %.6fs\n", time.Since(start).Seconds())
-	return strconv.Itoa(minMoves)
+	// fmt.Printf("\nPart 2 took %.6fs\n", time.Since(start).Seconds())
+	return minMoves
 }
+
+// A few globals purely for speed and simplicity
+var NumFloors int
+var NumItems int
+var LastIso int
 
 func minMoves(init State) int {
 	seen := map[int]bool{} // k: MinState "hash", v: seen

@@ -11,10 +11,9 @@ import (
 	"valbaca.com/advent/elf"
 )
 
-var atoi = elf.UnsafeAtoi
-var output string
+type Day10 struct{}
 
-func Part1(input string) string {
+func (d Day10) Part1(input string) interface{} {
 	lines := elf.Lines(input)
 	bots = make(map[int]*Bot)
 	outputs = make(map[int]int)
@@ -23,6 +22,13 @@ func Part1(input string) string {
 	}
 	return output
 }
+
+func (d Day10) Part2(input string) interface{} { // assumes Part1 has run
+	return strconv.Itoa(outputs[0] * outputs[1] * outputs[2])
+}
+
+var atoi = elf.UnsafeAtoi
+var output string
 
 type Bot struct {
 	id   int
@@ -93,8 +99,4 @@ func sendValue(targetType string, id int, value int) {
 	} else {
 		getBot(id).sendValue(value)
 	}
-}
-
-func Part2(input string) string { // assumes Part1 has run
-	return strconv.Itoa(outputs[0] * outputs[1] * outputs[2])
 }

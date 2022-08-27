@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -15,7 +16,7 @@ import (
 // TODO: replace this with intelligent lookup
 var daysSolvedByYear = map[int]int{
 	2015: 25,
-	2016: 12, // UPDATE ME!
+	2016: len(year2016.Year2016) - 1,
 }
 
 func main() {
@@ -51,8 +52,13 @@ func main() {
 	if year > 0 && day > 0 {
 		execute(year, day)
 	} else {
-		// execute all solutions from all years
-		years := []int{2015, 2016}
+		// execute all solutions from all years (in order)
+		years := []int{} // years = sort(keys(daysSolvedByYear))
+		for year := range daysSolvedByYear {
+			years = append(years, year)
+		}
+		sort.Ints(years)
+
 		for _, y := range years {
 			fmt.Printf("🎄 Year %v 🎄\n\n", y)
 			for d := 1; d <= daysSolvedByYear[y]; d++ {
@@ -64,7 +70,7 @@ func main() {
 }
 
 func execute(year, day int) {
-	fmt.Printf("Year:%v Day:%v\n", year, day)
+	fmt.Printf("Year: %v, Day: %v\n", year, day)
 	input := readInputFile(year, day)
 	input = strings.TrimSpace(input)
 	start := time.Now()
@@ -74,7 +80,7 @@ func execute(year, day int) {
 	case 2016:
 		year2016.ExecuteYear2016(day, input)
 	default:
-		fmt.Printf("Invalid or incomplete year: %d\n", year)
+		fmt.Printf("Invalid year: %d\n", year)
 	}
 	elapsed := time.Since(start)
 	fmt.Printf("took %.6fs\n\n", elapsed.Seconds())

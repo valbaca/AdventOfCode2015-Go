@@ -1,26 +1,28 @@
 package day5
 
-import "strings"
-
-/*
-TIL: I thought this would be trivially parallelizable, but saw hardly any perf gains.
-Fuzting around between strings, []bytes, runes, and ints was a drag.
-*/
 import (
 	"bytes"
 	"crypto/md5"
 	"fmt"
 	"sort"
 	"strconv"
+	"strings"
+
 	"valbaca.com/advent/elf"
 )
 
-func Part1(input string) string {
+/*
+TIL: I thought this would be trivially parallelizable, but saw hardly any perf gains.
+Fuzting around between strings, []bytes, runes, and ints was a drag.
+*/
+
+type Day5 struct{}
+
+func (d Day5) Part1(input string) interface{} {
 	pass := strings.Builder{}
 	inputBytes := []byte(input)
 	zeros := []byte("00000")
-	var i int64
-	i = 0
+	var i int64 = 0
 	found := 0
 	for found < 8 {
 		data := append(inputBytes, []byte(strconv.FormatInt(i, 10))...)
@@ -85,12 +87,11 @@ type result struct {
 	char string
 }
 
-func Part2(input string) string {
+func (d Day5) Part2(input string) interface{} {
 	pass := [8]rune{}
 	inputBytes := []byte(input)
 	zeros := []byte("00000")
-	var i int64
-	i = 0
+	var i int64 = 0
 	found := 0
 	for found < 8 {
 		data := append(inputBytes, []byte(strconv.FormatInt(i, 10))...)
