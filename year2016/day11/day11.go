@@ -31,16 +31,17 @@ But still had plenty of work to do since Go doesn't make the following as trivia
 
 An optimization I also added was not going through all the floors searching for matching pairs. We have a map! Use it!
 
-Finally, after doing all I can think of I got it down to 4 seconds!
+The final, awesome optimization was switching between using a string representation identifier of the minimum state
+to using an integer hash code instead. The hash code logic isn't anything proven or verified, but it seems to work.
 
-$ go run main.go latest
+Finally, I got it down to around 0.6s! Compared to my Java solution (60s), that's nearly 100x faster.
+
 Year:2016 Day:11
 
-Part 1 took 0.369669s
-Part 2 took 3.691404s
+Part 1 took 0.115502s
+Part 2 took 0.683379s
 47 71
-took 4.061112s
-
+took 0.798930s
 */
 
 // A few globals purely for speed and simplicity
@@ -75,17 +76,15 @@ func Part2(input string) string {
 }
 
 func minMoves(init State) int {
-	seen := map[string]bool{} // k: MinState "hash", v: seen
+	seen := map[int]bool{} // k: MinState "hash", v: seen
 	queue := []State{init}
 	var state State
 	for len(queue) > 0 {
 		state, queue = queue[0], queue[1:]
-		options := state.GenerateOptions()
-		for i := 0; i < len(options); i++ {
-			option := options[i]
-			optionZip := option.MinState().String()
-			if _, hasSeen := seen[optionZip]; !hasSeen {
-				seen[optionZip] = true
+		for _, option := range state.GenerateOptions() {
+			optionHash := option.MinState().HashCode()
+			if _, hasSeen := seen[optionHash]; !hasSeen {
+				seen[optionHash] = true
 				// checking if solved here (instead of top of queue-loop) cuts runtime in half!
 				if option.Solved() {
 					return option.moves
@@ -98,25 +97,26 @@ func minMoves(init State) int {
 }
 
 type MinState struct {
-	// elev floor the elevator is on
-	elev int
-	// floorPairs: k: floor number, v: # of pairs on that floor
-	floorPairs map[int]int
-	// k1, floor of unpaired chip; k2, floor of unpaired generator, v: count of such unpaired items (nearly always 1)
+	elev       int         // the floor the elevator is on
+	floorPairs map[int]int // k: floor number, v: # of pairs on that floor
+	// unpaired: k1, floor of unpaired chip; k2, floor of unpaired generator, v: count of such unpaired items (nearly always 1)
 	unpaired map[int]map[int]int
 }
 
-func (ms MinState) String() string {
-	sb := strings.Builder{}
-	sb.WriteString(fmt.Sprintf("%v#", ms.elev))
-	for floorN := 0; floorN < NumFloors; floorN++ {
-		sb.WriteString(fmt.Sprintf("f%vp%v", floorN, ms.floorPairs[floorN]))
-		for genFloor, unpairCount := range ms.unpaired[floorN] {
-			sb.WriteString(fmt.Sprintf("u%v->%v", unpairCount, genFloor))
+func (ms MinState) HashCode() (hash int) {
+	// random primes go!!!
+	hash = 2
+	hash += ms.elev * 5
+	for n := 0; n < NumFloors; n++ {
+		hash <<= 3
+		hash += ms.floorPairs[n] * 7
+		if len(ms.unpaired[n]) > 0 {
+			for genFloor, unpairCount := range ms.unpaired[n] {
+				hash += genFloor + 9*unpairCount
+			}
 		}
-		sb.WriteRune(';')
 	}
-	return sb.String()
+	return
 }
 
 type State struct {
@@ -158,15 +158,10 @@ func (f Floor) PossibleMoves() [][]Item {
 
 	moves := make([][]Item, 0, len(chooseTwo)+len(chooseOne))
 	for _, comb := range chooseTwo {
-		move := make([]Item, 2)
-		move[0] = items[comb[0]] // normally would loop but there's only ever two
-		move[1] = items[comb[1]]
-		moves = append(moves, move)
+		moves = append(moves, []Item{items[comb[0]], items[comb[1]]})
 	}
 	for _, comb := range chooseOne {
-		move := make([]Item, 1)
-		move[0] = items[comb[0]]
-		moves = append(moves, move)
+		moves = append(moves, []Item{items[comb[0]]})
 	}
 
 	return moves
@@ -213,7 +208,7 @@ func (s State) GenerateOptions() []State {
 	options := []State{}
 	possibleMoves := s.floors[s.elev].PossibleMoves()
 	for _, move := range possibleMoves {
-		for dir := 1; dir >= -1; dir -= 2 { // go up then down
+		for _, dir := range [2]int{1, -1} { // go up then down
 			nextFloorN := s.elev + dir
 			if nextFloorN < 0 || nextFloorN >= NumFloors {
 				continue
@@ -246,21 +241,20 @@ func (s State) MinState() MinState {
 		for item := range f.items {
 			if item.chip {
 				gen := Item{iso: item.iso, chip: false}
-			findGenerator:
 				for gn, gf := range s.floors {
 					if _, ok := gf.items[gen]; ok {
 						// found generator
 						if n == gn {
 							// found generator on same floor => paired
 							minState.floorPairs[n]++
-							break findGenerator
+							break
 						} else {
 							// found generator on different floors => unpaired
 							if _, exists := minState.unpaired[n]; !exists {
 								minState.unpaired[n] = make(map[int]int)
 							}
 							minState.unpaired[n][gn]++
-							break findGenerator
+							break
 						}
 					}
 				}
