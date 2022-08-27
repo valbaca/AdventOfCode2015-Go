@@ -12,9 +12,10 @@ import (
 	"valbaca.com/advent/year2016"
 )
 
+// TODO: replace this with intelligent lookup
 var daysSolvedByYear = map[int]int{
 	2015: 25,
-	2016: 11, // UPDATE ME!
+	2016: 12, // UPDATE ME!
 }
 
 func main() {
@@ -35,7 +36,7 @@ func main() {
 			pprof.StartCPUProfile(f)
 			defer pprof.StopCPUProfile()
 	*/
-	// TODO: use a flag instead of commenting/uncommenting
+	// TODO: use a flag instead of commenting/uncommenting for profiling
 
 	if len(os.Args) >= 2 && os.Args[1] == "latest" {
 		currYear := 0

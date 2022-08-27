@@ -6,6 +6,7 @@ import (
 	"valbaca.com/advent/year2016/day1"
 	"valbaca.com/advent/year2016/day10"
 	"valbaca.com/advent/year2016/day11"
+	"valbaca.com/advent/year2016/day12"
 	"valbaca.com/advent/year2016/day2"
 	"valbaca.com/advent/year2016/day3"
 	"valbaca.com/advent/year2016/day4"
@@ -16,6 +17,7 @@ import (
 	"valbaca.com/advent/year2016/day9"
 )
 
+// TODO: reduce the tedium of adding a new day
 func ExecuteYear2016(day int, input string) {
 	switch day {
 	case 1:
@@ -40,5 +42,7 @@ func ExecuteYear2016(day int, input string) {
 		fmt.Println(day10.Part1(input), day10.Part2(input))
 	case 11:
 		fmt.Println(day11.Part1(input), day11.Part2(input))
+	case 12:
+		fmt.Println(day12.Part1(input), day12.Part2(input))
 	}
 }
