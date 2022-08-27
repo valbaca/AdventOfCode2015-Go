@@ -23,6 +23,19 @@ func main() {
 	// go run main.go [year] [day]  # run a specific year and day
 	// go run main.go "latest"		# runs only the latest day's solution, tip: use watchexec
 
+	// Uncomment to enable profiling
+	// Then run:
+	// $ go build -o pprofbin main.go && ./pprofbin latest && go tool pprof -http=":8000" pprofbin ./cpu.pprof
+	/*
+		f, perr := os.Create("cpu.pprof")
+		if perr != nil {
+			panic(perr)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+	*/
+	// TODO: use a flag instead of commenting/uncommenting
+
 	if len(os.Args) >= 2 && os.Args[1] == "latest" {
 		currYear := 0
 		for y := range daysSolvedByYear {
